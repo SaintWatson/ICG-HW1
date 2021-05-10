@@ -329,8 +329,8 @@ function drawScene() {
         }
 
         // scaling
-        let ratio = item.scaling.ratio;
-        let scaling = item.scaling.default;
+        let ratio = item.scaling.ratio.slice();
+        let scaling = item.scaling.default.slice();
 
         if(item.dancing){
             let now = new Date().getTime() % 200;
@@ -338,7 +338,7 @@ function drawScene() {
                 ratio = ratio.map( a => a*1.2);
         }
         for(var d=0 ; d<3 ; d++)
-            scaling[i] *= ratio[i]
+            scaling[d] *= ratio[d]
 
         mat4.scale(mvMatrix, scaling);
 
