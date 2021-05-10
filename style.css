@@ -1,0 +1,137 @@
+#body{
+    display: grid;
+    /* grid-row: 40% 60%; */
+}
+#panel{
+    top:55%
+}
+/* tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.tab button:hover{
+    background-color: #ccc;
+}
+.tab button:active{
+    background-color: #bbb;
+}
+.tab-content{
+    border: solid #ddd 1px;
+    background-color: #eee;
+
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    height: 30%;
+    margin: 0px;
+}
+/* panel */
+.sub-panel{
+    display: inline-block;
+    margin: 3px;
+
+    border: 3px solid;
+    border-radius: 15px;
+    background-color: white;
+    
+    padding-left: 5%;
+    height: 100%;
+    top: inherit;
+}
+#item1-subpanel-1{
+    border-color:navy;
+}
+#item1-subpanel-2{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    border-color: skyblue;
+}
+#item1-subpanel-3{
+    border-color: navy;
+}
+
+#item2-subpanel-1{
+    border-color:navy;
+}
+#item2-subpanel-2{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    border-color: skyblue;
+}
+#item2-subpanel-3{
+    border-color: navy;
+}
+
+#item3-subpanel-1{
+    border-color:navy;
+}
+#item3-subpanel-2{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    border-color: skyblue;
+}
+#item3-subpanel-3{
+    border-color: navy;
+}
+
+/* properties */
+.properties{
+    width: 50%;
+    font-size: 18;
+    font-weight: bold;
+    margin-top: 20;
+    margin-bottom: 20;
+    display: inline-block;
+}
+.properties-input{
+    width: 25%;
+    float: right;
+    margin-top: 20;
+    margin-bottom: 20;
+    margin-right: 9%;
+}
+
+.selector{
+    width: 75%;
+    font-size: 16;
+}
+select{
+    cursor: pointer;
+}
+
+.range-bar{
+    width: 75%;
+}
+
+.options{
+    font-size: 20;
+    font-family:'Arial Narrow Bold', sans-serif ;
+    padding: 3;
+    margin: 3;
+    width: 80%;
+    left: 50%;
+    background-color: red;
+    color:white;
+    border-radius: 10px;
+    transition-delay: 4ms;
+    transition-duration: 4ms;
+}
+
+.options:hover{
+    font-weight: bolder;
+    transition-delay: 4ms;
+    cursor: pointer;
+}
