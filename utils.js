@@ -12,7 +12,6 @@ var modelVertexNormalBuffer;
 var modelVertexFrontColorBuffer;
 
 var startTime = new Date().getTime();
-var boo = "aaa";
 
 let shaderSourceCode = {
     "flat": {
@@ -55,7 +54,10 @@ let config = {
         { // item1
             shader: 'Flat', 
             location: [-40, 0 ,-80], 
-            scale: [1, 1, 1], 
+            scaling:{
+                default: [1.0, 1.0, 1.0], 
+                ratio: 1.0
+            },
             shear: 90, 
             rotation:{ 
                 degree: 35, 
@@ -75,7 +77,10 @@ let config = {
         { // item2
             shader: 'Gouraud', 
             location: [0, 0 ,-80], 
-            scale: [1, 1, 1], 
+            scaling:{
+                default: [1.0, 1.0, 1.0], 
+                ratio: 1.0
+            }, 
             shear: 90, 
             rotation:{ 
                 degree: 35, 
@@ -95,7 +100,10 @@ let config = {
         { // item3
             shader: 'Phong', 
             location: [40, 0 ,-80], 
-            scale: [1, 1, 1], 
+            scaling:{
+                default: [1.0, 1.0, 1.0], 
+                ratio: 1.0
+            }, 
             shear: 90, 
             rotation:{ 
                 degree: 35, 
@@ -284,17 +292,20 @@ function drawScene() {
         // Pre-process for models
         if(item.newload){
             if(item.model === "Teapot"){
-                item.scale = [1.0, 1.0, 1.0];
+                item.scaling.default = [1.0, 1.0, 1.0];
+                item.scaling.ratio = 1.0;
                 item.rotation.direction = [0.0, 1.0, 0.0];
                 item.location[1] = 0;
             }
             else if(item.model === "Kangaroo"){
-                item.scale = [30.0, 30.0, 30.0];
+                item.scaling.default = [30.0, 30.0, 30.0];
+                item.scaling.ratio = 1.0;
                 item.rotation.direction = [0.0, 0.0, 1.0];
                 item.location[1] = 20;
             }
             else if(item.model === "Easter"){
-                item.scale = [20.0, 20.0, 20.0];
+                item.scaling.default = [20.0, 20.0, 20.0];
+                item.scaling.ratio = 1.0;
                 item.rotation.direction = [0.0, 0.0, 1.0];
                 item.location[1] = 0;
             }
@@ -318,16 +329,15 @@ function drawScene() {
         }
 
         // scaling
+        let ratio = item.scaling.ratio;
+        let scaling = item.scaling.default;
+
         if(item.dancing){
             let now = new Date().getTime() % 200;
-            let big = item.scale.map(x => x*1.2);
-            if(now > 100)
-                mat4.scale(mvMatrix, big);
-            else
-                mat4.scale(mvMatrix, item.scale);
-        }else{
-            mat4.scale(mvMatrix, item.scale);
+            if(now > 100)   ratio *= 1.2
         }
+        scaling = scaling.map(a => a * ratio);
+        mat4.scale(mvMatrix, scaling);
 
         // shearing
         let shearMatrix = mat4.create();
