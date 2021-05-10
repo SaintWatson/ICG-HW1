@@ -23,7 +23,7 @@ function updateShader(id, value){
 function updateModel(id, value){
     config.item[id].newload = true;
     config.item[id].model = value;
-    // init();
+    init();
 }
 
 // Interact Block 2
@@ -35,40 +35,43 @@ let dimToIndex = {
 };
 
 // translation
-function getLocation(iid, dim){
+function getLocation(id, dim){
     let index = dimToIndex[dim];
-    return config.item[iid].location[index];
+    return config.item[id].location[index];
 }
+function updateLocation(id, src, value=0){
 
-function updateLocation(iid, src){
+    let VB = document.getElementById(`TL${id}-VB`);
+    let SB = document.getElementById(`TL${id}-SB`);
+    let RB = document.getElementById(`TL${id}-RB`);
 
-    let TXT = document.getElementById("txt" + (iid+1).toString() + "-1");
-    let SB = document.getElementById("sb" + (iid+1).toString() + "-1");
-    let RB = document.getElementById("rb" + (iid+1).toString() + "-1")
-    let value = 0;
-
-    if(src === "sb"){
-        TXT.value = getScaling(iid, SB.value);
-        RB.value = getScaling(iid, SB.value);
+    if(src === "SB"){
+        VB.value = getLocation(id, SB.value);
+        RB.value = getLocation(id, SB.value);
         return;
     }
 
-    if(src === "rb"){
+    else if(src === "RB"){
         value = RB.value;
-        TXT.value = value;
+        VB.value = value;
+    }
+
+    else if(src === "VB"){
+        value = VB.value;
+        RB.value = value;
     }
     else{
-        value = TXT.value;
         RB.value = value;
+        VB.value = value;
     }
 
     let index = dimToIndex[SB.value];
-    config.item[iid].location[index] = value;
+    config.item[id].location[index] = value;
 }
 
 // rotation
-function getRotation(iid){
-    let direction = config.item[iid].rotation.direction;
+function getRotation(id){
+    let direction = config.item[id].rotation.direction;
     if(direction[0] != 0)
         return "x";
     else if(direction[1] != 0)
@@ -76,144 +79,146 @@ function getRotation(iid){
     else if(direction[2] != 0)
         return "z";
 }
-function updateRotation(iid, src){
+function updateRotation(id, src, value=0){
 
-    let TXT = document.getElementById("txt" + (iid+1).toString() + "-2");
-    let SB = document.getElementById("sb" + (iid+1).toString() + "-2");
-    let RB = document.getElementById("rb" + (iid+1).toString() + "-2")
-    let value = TXT.value;
+    let VB = document.getElementById(`RT${id}-VB`);
+    let SB = document.getElementById(`RT${id}-SB`);
+    let RB = document.getElementById(`RT${id}-RB`);
 
-    if(src === "sb"){
+    if(src === "SB"){
         if(SB.value == "x")
-            config.item[iid].rotation.direction = [1.0, 0.0, 0.0];
+            config.item[id].rotation.direction = [1.0, 0.0, 0.0];
         else if(SB.value == "y")
-            config.item[iid].rotation.direction = [0.0, 1.0, 0.0];
+            config.item[id].rotation.direction = [0.0, 1.0, 0.0];
         else if(SB.value == "z")
-            config.item[iid].rotation.direction = [0.0, 0.0, 1.0];
+            config.item[id].rotation.direction = [0.0, 0.0, 1.0];
         return;
     }
 
-    if(src === "rb"){
+    else if(src === "RB"){
         value = RB.value;
-        TXT.value = value;
-    }
-    else{
-        value = TXT.value;
-        RB.value = value;
+        VB.value = value;
     }
 
-    config.item[iid].rotation.degree = value;
+    else if(src === "VB"){
+        value = VB.value;
+        RB.value = value;
+    }
+    else{
+        RB.value = value;
+        VB.value = value;
+    }
+
+    config.item[id].rotation.degree = value;
 }
 
 // scaling
-function getScaling(iid, dim){
-    if(dim === "all")
-        dim = "x";
+function getScaleRatio(id, dim){
+
+    if(dim === "all")   dim = "x";
     let index = dimToIndex[dim];
-    return config.item[iid].scale[index];
+    return config.item[id].scaling.ratio[index];
 }
-function updateScaling(iid, src){
+function updateScaling(id, src, value=0){
 
-    let TXT = document.getElementById("txt" + (iid+1).toString() + "-3");
-    let SB = document.getElementById("sb" + (iid+1).toString() + "-3");
-    let RB = document.getElementById("rb" + (iid+1).toString() + "-3");
-    let value = 0;
+    let VB = document.getElementById(`SC${id}-VB`);
+    let SB = document.getElementById(`SC${id}-SB`);
+    let RB = document.getElementById(`SC${id}-RB`);
 
-    if(src === "sb"){
-        TXT.value = getScaling(iid, SB.value)
+    if(src === "SB"){
+        VB.value = getScaleRatio(id, SB.value)
+        RB.value = getScaleRatio(id, SB.value)
         return;
     }
 
-    if(src === "rb"){
+    else if(src === "RB"){
         value = RB.value;
-        TXT.value = value;
+        VB.value = value;
     }
-    else{
-        value = TXT.value;
+    else if(src === "VB"){
+        value = VB.value;
         RB.value = value;
     }
 
     let index = dimToIndex[SB.value];
     if(index == 3)
-        config.item[iid].scale = [value, value, value];
+        config.item[id].scaling.ratio = [value, value, value];
     else
-        config.item[iid].scale[index] = value;
+        config.item[id].scaling.ratio[index] = value;
+
+    console.log(config.item[id].scaling);
 }
 
 // shearing
-function updateShearing(iid, src){
+function updateShearing(id, src, value=0){
 
-    let TXT = document.getElementById("txt" + (iid+1).toString() + "-4");
-    let RB = document.getElementById("rb" + (iid+1).toString() + "-4");
-    let value = TXT.value;
+    let VB = document.getElementById(`SH${id}-VB`);
+    let RB = document.getElementById(`SH${id}-RB`);
 
-    if(src === "rb"){
+    if(src === "RB"){
         value = RB.value;
-        TXT.value = value;
+        VB.value = value;
+    }
+    else if (src === "VB"){
+        value = VB.value;
+        RB.value = value;
     }
     else{
-        value = TXT.value;
+        VB.value = value;
         RB.value = value;
     }
 
-    config.item[iid].shear = value;
+    config.item[id].shear = value;
 }
 
 function init(){
-    for(let i=1 ; i<=3 ; i++){
+    
+    let get = document.getElementById.bind(document);
 
-        let SS = document.getElementById("SS" + i.toString());
-        SS.value = config.item[i-1].shader;
+    for(let i=0 ; i<1 ; i++){
 
-        let TXT1 = document.getElementById("txt" + i.toString() + "-1");
-        let RB1 = document.getElementById("rb" + i.toString() + "-1");
-        TXT1.value = getLocation(i-1,"x");
-        RB1.value = getLocation(i-1,"x");
-        
-        let TXT2 = document.getElementById("txt" + i.toString() + "-2");
-        let RB2 = document.getElementById("rb" + i.toString() + "-2");
-        let SB2 = document.getElementById("sb" + i.toString() + "-2");
-        TXT2.value = config.item[i-1].rotation.degree;
-        RB2.value = config.item[i-1].rotation.degree;
-        SB2.value = getRotation(i-1);
-        
-        let TXT3 = document.getElementById("txt" + i.toString() + "-3");
-        let RB3 = document.getElementById("rb" + i.toString() + "-3");
-        TXT3.value = getScaling(i-1,"x");
-        RB3.value = getScaling(i-1,"x");
-        
-        let TXT4 = document.getElementById("txt" + i.toString() + "-4");
-        let RB4 = document.getElementById("rb" + i.toString() + "-4");
-        TXT4.value = config.item[i-1].shear;
-        RB4.value = config.item[i-1].shear;
+        get(`SD${i}`).value = config.item[i].shader;
+
+        get(`TL${i}-RB`).value = getLocation(i,"x");
+        get(`TL${i}-VB`).value = getLocation(i,"x");
+
+        get(`RT${i}-RB`).value = config.item[i].rotation.degree;
+        get(`RT${i}-VB`).value = config.item[i].rotation.degree;
+        get(`RT${i}-SB`).value = getRotation(i);
+
+        get(`SC${i}-RB`).value = getScaleRatio(i,"x");
+        get(`SC${i}-VB`).value = getScaleRatio(i,"x");
+
+        get(`SH${i}-RB`).value = config.item[i].shear;
+        get(`SH${i}-VB`).value = config.item[i].shear;
     }
 }
-// init();
+init();
     
 // Interact Block 3
-function autoRotateSwitch(iid){
-    let btn = document.getElementById("AR"+(iid+1).toString());
-    config.item[iid].autoRotate = !config.item[iid].autoRotate;
+function autoRotateSwitch(id){
+    let btn = document.getElementById("AR"+(id+1).toString());
+    config.item[id].autoRotate = !config.item[id].autoRotate;
 
-    if(config.item[iid].autoRotate)
+    if(config.item[id].autoRotate)
         btn.style.backgroundColor = '#0000FF';
     else
         btn.style.backgroundColor = '#FF0000';
 } 
-function crazySwitch(iid){
-    let btn = document.getElementById("C"+(iid+1).toString());
-    config.item[iid].crazy = !config.item[iid].crazy;
+function crazySwitch(id){
+    let btn = document.getElementById("C"+(id+1).toString());
+    config.item[id].crazy = !config.item[id].crazy;
 
-    if(config.item[iid].crazy)
+    if(config.item[id].crazy)
         btn.style.backgroundColor = '#0000FF';
     else
         btn.style.backgroundColor = '#FF0000';
 } 
-function dancingSwitch(iid){
-    let btn = document.getElementById("D"+(iid+1).toString());
-    config.item[iid].dancing = !config.item[iid].dancing;
+function dancingSwitch(id){
+    let btn = document.getElementById("D"+(id+1).toString());
+    config.item[id].dancing = !config.item[id].dancing;
 
-    if(config.item[iid].dancing)
+    if(config.item[id].dancing)
         btn.style.backgroundColor = '#0000FF';
     else
         btn.style.backgroundColor = '#FF0000';

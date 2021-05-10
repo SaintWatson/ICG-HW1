@@ -60,6 +60,48 @@
             
             <fieldset class="sub-panel-B">
                 <legend class="pTitle-B">Transformation</legend>
+                
+                <div class="control-box-4" id="TL-block-0" style="grid-row: 2;grid-column: 1;">
+                    <div class="ppt-title">Translation</div>
+                    <select class="selector" id="TL0-SB" onchange="updateLocation(0, 'SB')">
+                        <option value="x">x</option>
+                        <option value="y">y</option>
+                        <option value="z">z</option>
+                    </select>
+                    <input type="range" class="range-bar" id="TL0-RB" min=-100 max=100 onchange="updateLocation(0, 'RB')">
+                    <input class="value-box" id="TL0-VB" onchange="updateLocation(0,'VB')">
+                </div>
+                
+                <div class="control-box-4" id="RT-block-0" style="grid-row: 2;grid-column: 2;">
+                    <div class="ppt-title">Rotation</div>
+                    <select class="selector" id="RT0-SB" onchange="updateRotation(0, 'SB')">
+                        <option value="x">x</option>
+                        <option value="y">y</option>
+                        <option value="z">z</option>
+                    </select>
+                    <input type="range" class="range-bar" id="RT0-RB" min=-1200 max=1200 onchange="updateRotation(0, 'RB')">
+                    <input class="value-box" id="RT0-VB" onchange="updateRotation(0, 'VB')">
+                </div>
+                
+                <div class="control-box-4" id="SC-block-0" style="grid-row: 3;grid-column: 1;">
+                    <div class="ppt-title">Scaling</div>
+                    <select class="selector" id="SC0-SB" onchange="updateScaling(0, 'SB')">
+                        <option value="all">all</option>
+                        <option value="x">x</option>
+                        <option value="y">y</option>
+                        <option value="z">z</option>
+                    </select>
+                    <input type="range" class="range-bar" id="SC0-RB" min=0.1 max=3 step=0.1 onchange="updateScaling(0, 'RB')">
+                    <input class="value-box" id="SC0-VB" onchange="updateScaling(0, 'VB')">
+                </div>
+                
+                <div class="control-box-4" id="SH-block-0" style="grid-row: 3;grid-column: 2;">
+                    <div class="ppt-title">Shearing</div>
+                    <div> <!-- Shear doesn't have dim --> </div>
+                    <input type="range" class="range-bar" id="SH0-RB" min=-180 max=180 onchange="updateShearing(0, 'RB')">
+                    <input class="value-box" id="SH0-VB" onchange="updateShearing(0, 'VB')">
+                </div>
+
             </fieldset>
             
             <fieldset class="sub-panel">

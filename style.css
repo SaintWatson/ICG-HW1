@@ -39,110 +39,54 @@
 
     border: 3px solid;
     border-radius: 15px;
-    border-color: navy;
+    border-color: blue;
 
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 0% 50% 50%;
 }
 .pTitle{
     color: blue;
     font-weight: bold;
 }
 .pTitle-B{
-    color: navy;
+    color: blue;
     font-weight: bold;
+    grid-row: 0;
+    grid-column: 0/2;
 }
+/* control-box */
 .control-box{
-    /* border: 1px solid; */
+
+}
+.control-box-4{
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-template-rows: 40% 40%;
 }
 .ppt-title{
     font-weight: bold;
     font-size: 20;
+    /* display: inline; */
 }
 .selector-B{
     width: 75%;
     font-size: 18;
 }
-/* panel
-.sub-panel{
-    display: inline-block;
-    margin: 3px;
-
-    border: 3px solid;
-    border-radius: 15px;
-    background-color: white;
-    
-    padding-left: 5%;
-    height: 100%;
-    top: inherit;
-}
-#item1-subpanel-1{
-    border-color:navy;
-}
-#item1-subpanel-2{
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
-    border-color: skyblue;
-}
-#item1-subpanel-3{
-    border-color: navy;
-}
-
-#item2-subpanel-1{
-    border-color:navy;
-}
-#item2-subpanel-2{
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
-    border-color: skyblue;
-}
-#item2-subpanel-3{
-    border-color: navy;
-}
-
-#item3-subpanel-1{
-    border-color:navy;
-}
-#item3-subpanel-2{
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
-    border-color: skyblue;
-}
-#item3-subpanel-3{
-    border-color: navy;
-} */
-
-/* properties */
-.properties{
-    width: 50%;
-    font-size: 18;
-    font-weight: bold;
-    margin-top: 20;
-    margin-bottom: 20;
-    display: inline-block;
-}
-.properties-input{
-    width: 25%;
-    float: right;
-    margin-top: 20;
-    margin-bottom: 20;
-    margin-right: 9%;
-}
-
 .selector{
-    width: 75%;
-    font-size: 16;
+    height: 60%;
+    width: 40%;
+    margin-top: 5%;
+    margin-left: 10%;
 }
-select{
-    cursor: pointer;
-}
-
 .range-bar{
-    width: 75%;
+    margin-top: 5%;
+}
+.value-box{
+    height: 60%;
+    width: 40%;
+    margin-top: 5%;
+    margin-left: 10%;
 }
 
 .options{
