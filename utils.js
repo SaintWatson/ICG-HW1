@@ -56,7 +56,7 @@ let config = {
             location: [-40, 0 ,-80], 
             scaling:{
                 default: [1.0, 1.0, 1.0], 
-                ratio: 1.0
+                ratio: [1.0, 1.0, 1.0]
             },
             shear: 90, 
             rotation:{ 
@@ -79,7 +79,7 @@ let config = {
             location: [0, 0 ,-80], 
             scaling:{
                 default: [1.0, 1.0, 1.0], 
-                ratio: 1.0
+                ratio: [1.0, 1.0, 1.0]
             }, 
             shear: 90, 
             rotation:{ 
@@ -102,7 +102,7 @@ let config = {
             location: [40, 0 ,-80], 
             scaling:{
                 default: [1.0, 1.0, 1.0], 
-                ratio: 1.0
+                ratio: [1.0, 1.0, 1.0]
             }, 
             shear: 90, 
             rotation:{ 
@@ -293,19 +293,19 @@ function drawScene() {
         if(item.newload){
             if(item.model === "Teapot"){
                 item.scaling.default = [1.0, 1.0, 1.0];
-                item.scaling.ratio = 1.0;
+                item.scaling.ratio = [1.0, 1.0, 1.0];
                 item.rotation.direction = [0.0, 1.0, 0.0];
                 item.location[1] = 0;
             }
             else if(item.model === "Kangaroo"){
                 item.scaling.default = [30.0, 30.0, 30.0];
-                item.scaling.ratio = 1.0;
+                item.scaling.ratio = [1.0, 1.0, 1.0];
                 item.rotation.direction = [0.0, 0.0, 1.0];
                 item.location[1] = 20;
             }
             else if(item.model === "Easter"){
                 item.scaling.default = [20.0, 20.0, 20.0];
-                item.scaling.ratio = 1.0;
+                item.scaling.ratio = [1.0, 1.0, 1.0];
                 item.rotation.direction = [0.0, 0.0, 1.0];
                 item.location[1] = 0;
             }
@@ -334,9 +334,12 @@ function drawScene() {
 
         if(item.dancing){
             let now = new Date().getTime() % 200;
-            if(now > 100)   ratio *= 1.2
+            if(now > 100)   
+                ratio = ratio.map( a => a*1.2);
         }
-        scaling = scaling.map(a => a * ratio);
+        for(var d=0 ; d<3 ; d++)
+            scaling[i] *= ratio[i]
+
         mat4.scale(mvMatrix, scaling);
 
         // shearing
