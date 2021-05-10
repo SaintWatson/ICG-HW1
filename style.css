@@ -1,41 +1,70 @@
-#body{
-    display: grid;
-    /* grid-row: 40% 60%; */
-}
 #panel{
     top:55%
 }
 /* tab */
-.tab {
-    overflow: hidden;
+.tabs {
+    overflow: auto;
     border: 1px solid #ccc;
-    background-color: #f1f1f1;
-}
-.tab button {
+    background-color: #eee;}
+.tabs button {
     background-color: inherit;
     float: left;
     border: none;
     outline: none;
     cursor: pointer;
     padding: 14px 16px;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-.tab button:hover{
-    background-color: #ccc;
-}
-.tab button:active{
-    background-color: #bbb;
-}
-.tab-content{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;}
+.tabs button:hover{
+    background-color: #ccc;}
+.tabs button:active{
+    background-color: #bbb;}
+
+/* panel */
+.panel{
     border: solid #ddd 1px;
     background-color: #eee;
-
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    display: none;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     height: 30%;
     margin: 0px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-/* panel */
+.sub-panel{
+    border: 3px solid;
+    border-radius: 15px;
+    border-color: blue;
+}
+.sub-panel-B{
+    grid-column: 2/4;
+
+    border: 3px solid;
+    border-radius: 15px;
+    border-color: navy;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+.pTitle{
+    color: blue;
+    font-weight: bold;
+}
+.pTitle-B{
+    color: navy;
+    font-weight: bold;
+}
+.control-box{
+    /* border: 1px solid; */
+}
+.ppt-title{
+    font-weight: bold;
+    font-size: 20;
+}
+.selector-B{
+    width: 75%;
+    font-size: 18;
+}
+/* panel
 .sub-panel{
     display: inline-block;
     margin: 3px;
@@ -85,7 +114,7 @@
 }
 #item3-subpanel-3{
     border-color: navy;
-}
+} */
 
 /* properties */
 .properties{

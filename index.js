@@ -1,34 +1,29 @@
-function getTab(event, tabID, callerID){
+function getTab(ID){
 
-    let tabcontent = document.getElementsByClassName("tab-content");
-    for(var i=0 ; i<tabcontent.length ; i++)
-        tabcontent[i].style.display = "none";
+    let panels = document.getElementsByClassName("panel");
+    let tabs = document.getElementsByClassName("tab");
 
-    let tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-        tablinks[i].style.backgroundColor = "#f1f1f1";
+    for(var i=0 ; i<panels.length ; i++){
+        panels[i].style.display = "none";
+        tabs[i].style.backgroundColor = "#eee";
     }
-    
-    document.getElementById(tabID).style.display = "grid";
-    event.currentTarget.className += " active";
 
-    let caller = document.getElementById(callerID);
-    caller.style.backgroundColor = "#cccccc";
+    panels[ID].style.display = "grid";
+    tabs[ID].style.backgroundColor = "#ccc";
+
 }
-
 
 // Interact Block 1
 
 // shader
-function updateShader(iid, value){
-    config.item[iid].shader = value;
+function updateShader(id, value){
+    config.item[id].shader = value;
 }
 // model
-function updateModel(iid, value){
-    config.item[iid].newload = true;
-    config.item[iid].model = value;
-    init();
+function updateModel(id, value){
+    config.item[id].newload = true;
+    config.item[id].model = value;
+    // init();
 }
 
 // Interact Block 2
@@ -193,7 +188,7 @@ function init(){
         RB4.value = config.item[i-1].shear;
     }
 }
-init();
+// init();
     
 // Interact Block 3
 function autoRotateSwitch(iid){

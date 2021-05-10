@@ -14,6 +14,7 @@
     <script src="./shader/Phong.js"></script>
     
     <script type="text/javascript" src="./utils.js"></script>
+    <script type="text/javascript" src="./index.js" defer></script>
 
 </head>
 
@@ -21,17 +22,57 @@
 
     <canvas id="ICG-canvas" style="border: none;" width="1270" height="320"></canvas>
 
-    <div id="panel">
-        <div class="tab">
-            <button class="tablinks" id="tablink1" onclick="getTab(event, 'item1-panel', 'tablink1')">Item1</button>
-            <button class="tablinks" id="tablink2" onclick="getTab(event, 'item2-panel', 'tablink2')">Item2</button>
-            <button class="tablinks" id="tablink3" onclick="getTab(event, 'item3-panel', 'tablink3')">Item3</button>
-            <button class="tablinks" id="tablink4" onclick="getTab(event, 'light1-panel', 'tablink4')">Light1</button>
-            <button class="tablinks" id="tablink5" onclick="getTab(event, 'light2-panel', 'tablink5')">Light2</button>
-            <button class="tablinks" id="tablink6" onclick="getTab(event, 'light3-panel', 'tablink6')">Light3</button>
-            <button class="tablinks" id="tablink7" onclick="getTab(event, 'light3-panel', 'tablink7')">Light3</button>
+    <div id="panel-box">
+        <div class="tabs">
+            <button class="tab" id="tab-0" onclick="getTab(0)">Item1</button>
+            <button class="tab" id="tab-1" onclick="getTab(1)">Item2</button>
+            <button class="tab" id="tab-2" onclick="getTab(2)">Item3</button>
+            <button class="tab" id="tab-3" onclick="getTab(3)">Light1</button>
+            <button class="tab" id="tab-4" onclick="getTab(4)">Light2</button>
+            <button class="tab" id="tab-5" onclick="getTab(5)">Light3</button>
+            <button class="tab" id="tab-6" onclick="getTab(6)">Feature<button>
         </div>
+        <div class="panel" id="panel-0" style="display: grid;"> 
 
+            <fieldset class="sub-panel">
+                <legend class="pTitle">Main</legend>
+
+                <div class="control-box" id="SD-block-0">
+                    <div class="ppt-title">Shader</div>
+                    <select class="selector-B" id="SD0" onchange="updateShader(0, value)">
+                        <option value="Flat">Flat</option>
+                        <option value="Gouraud">Gouraud</option>
+                        <option value="Phong">Phong</option>
+                    </select>
+                </div>
+                <br>
+                <div class="control-box" id="MD-block-0">
+                    <div class="ppt-title">Model</div>
+                    <select class="selector-B" id="MD0" onchange="updateModel(0, value)">
+                        <option value="Teapot">Teapot</option>
+                        <option value="Easter">Easter</option>
+                        <option value="Kangaroo">Kangaroo</option>
+                        <option value="Hide">Hide</option>
+                    </select>
+                </div>
+
+            </fieldset>
+            
+            <fieldset class="sub-panel-B">
+                <legend class="pTitle-B">Transformation</legend>
+            </fieldset>
+            
+            <fieldset class="sub-panel">
+                <legend class="pTitle">Texture</legend>
+            </fieldset>
+        </div>
+        <div class="panel" id="panel-1"> panel-1</div>
+        <div class="panel" id="panel-2"></div>
+        <div class="panel" id="panel-3"></div>
+        <div class="panel" id="panel-4"></div>
+        <div class="panel" id="panel-5"></div>
+        <div class="panel" id="panel-6"></div>
+<!-- 
         <div id="item1-panel" class="tab-content">
             <div class="sub-panel" id="item1-subpanel-1">
                 <h3>Shader</h3>
@@ -243,17 +284,10 @@
 
         <div id="light3-panel" class="tab-content">
             <p>This is content in light3-panel</p>
-        </div>
-
-        <script>
-            let tabcontent = document.getElementsByClassName("tab-content");
-            for(var i=1 ; i<tabcontent.length ; i++)
-                tabcontent[i].style.display = "none";
-        </script>
+        </div> -->
 
     </div>
 
-    <script type="text/javascript" src="./index.js"></script>
     
 </body>
 
