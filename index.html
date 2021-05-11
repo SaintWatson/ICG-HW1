@@ -30,8 +30,11 @@
             <button class="tab" id="tab-3" onclick="getTab(3)">Light1</button>
             <button class="tab" id="tab-4" onclick="getTab(4)">Light2</button>
             <button class="tab" id="tab-5" onclick="getTab(5)">Light3</button>
-            <button class="tab" id="tab-6" onclick="getTab(6)">Feature<button>
+            <button class="tab" id="tab-6" onclick="getTab(6)">Option</button>
+            <button class="tab" id="tab-7" onclick="getTab(7)">Feature</button>
+            <button class="tab" id="tab-8" onclick="getTab(8)">Background</button>
         </div>
+
         <div class="panel" id="panel-0" style="display: grid;"> 
 
             <fieldset class="sub-panel">
@@ -104,230 +107,43 @@
 
             </fieldset>
             
-            <fieldset class="sub-panel">
+            <fieldset class="sub-panel" style="display: grid; grid-template-rows: 0% 20% 20% 20% 40%;">
                 <legend class="pTitle">Texture</legend>
+ 
+                <div class="control-box" style="display: grid; grid-template-columns: 10% 70% 30%;">
+                    <div class="ppt-title">Ka</div>
+                    <input type="range" class="range-bar-tx" id="KA0-RB" min=0 max=1 step=0.05 onchange="updateKa(0, 'RB')">
+                    <input type="text" class="value-box" id="KA0-VB" style="margin-top: 0;" onchange="updateKa(0, 'VB')">
+                </div>
+ 
+                <div class="control-box" style="display: grid; grid-template-columns: 10% 70% 30%;">
+                    <div class="ppt-title">Kd</div>
+                    <input type="range" class="range-bar-tx" id="KD0-RB" min=0 max=1 step=0.05 onchange="updateKd(0, 'RB')">
+                    <input type="text" class="value-box" id="KD0-VB" style="margin-top: 0;" onchange="updateKd(0, 'VB')">
+                </div>
+
+                <div class="control-box" style="display: grid; grid-template-columns: 10% 70% 30%;">
+                    <div class="ppt-title">Ks</div>
+                    <input type="range" class="range-bar-tx" id="KS0-RB" min=0 max=1 step=0.05 onchange="updateKs(0, 'RB')">
+                    <input type="text" class="value-box" id="KS0-VB" style="margin-top: 0;" onchange="updateKs(0, 'VB')">
+                </div>
+
+                <div class="control-box" style="display: grid; grid-template-columns: 10% 70% 30%;">
+                    <div class="ppt-title">Shininess</div>
+                    <input type="range" class="range-bar-tx" style="margin-top: 7.5%;" id="SN0-RB" min=0 max=16 step=0.5 onchange="updateShininess(0, 'RB')">
+                    <input type="text" class="value-box" id="SN0-VB" style="margin-top: 25%; height: 30%;" onchange="updateShininess(0, 'VB')">
+                </div>
             </fieldset>
         </div>
-        <div class="panel" id="panel-1"> panel-1</div>
+        
+        <div class="panel" id="panel-1"></div>
         <div class="panel" id="panel-2"></div>
         <div class="panel" id="panel-3"></div>
         <div class="panel" id="panel-4"></div>
         <div class="panel" id="panel-5"></div>
         <div class="panel" id="panel-6"></div>
-<!-- 
-        <div id="item1-panel" class="tab-content">
-            <div class="sub-panel" id="item1-subpanel-1">
-                <h3>Shader</h3>
-                <select class="selector" id="SS1" onchange="updateShader(0, value)">
-                    <option value="Flat">Flat</option>
-                    <option value="Gouraud">Gouraud</option>
-                    <option value="Phong">Phong</option>
-                </select>
-                <h3>Model</h3>
-                <select class="selector" onchange="updateModel(0, value)">
-                    <option value="Teapot">Teapot</option>
-                    <option value="Kangaroo">Kangaroo</option>
-                    <option value="Easter">Easter</option>
-                    <option value="Hide">Hide</option>
-                </select>
-            </div>
-            <div class="sub-panel" id="item1-subpanel-2">
-                    
-                <div class="translation-module">
-                    <label class="properties">Translation</label>
-                    <input class="properties-input" type="text" id="txt1-1" onchange="updateLocation(0,'txt')">
-                    <input class="range-bar" type="range" id="rb1-1" min=-100 max=100 onchange="updateLocation(0,'rb')">
-                    <select style="font-size: 16;" id="sb1-1" onchange="updateLocation(0,'sb')">
-                        <option value="x">x</option>
-                        <option value="y">y</option>
-                        <option value="z">z</option>
-                    </select>
-                </div>
-
-                <div class="rotation-module">
-                    <label class="properties">Rotation</label>
-                    <input class="properties-input" type="text" id="txt1-2" onchange="updateRotation(0,'txt')">
-                    <input type="range" class="range-bar" id="rb1-2" min=-1200 max=1200 onchange="updateRotation(0,'rb')">
-                    <select style="font-size: 16;" id="sb1-2" onchange="updateRotation(0,'sb')">
-                        <option>x</option>
-                        <option>y</option>
-                        <option>z</option>
-                    </select>
-                </div>
-
-                <div class="scaling-module">
-                    <label class="properties">Scaling</label>
-                    <input class="properties-input" type="text" id="txt1-3" onchange="updateScaling(0,'txt')">
-                    <input type="range" class="range-bar" id="rb1-3" min=0 max=50 step=0.05 onchange="updateScaling(0,'rb')">
-                    <select style="font-size: 16;" id="sb1-3" onchange="updateScaling(0,'sb')">
-                        <option>all </option>
-                        <option>x</option>
-                        <option>y</option>
-                        <option>z</option>
-                    </select>
-                </div>
-                
-                <div class="shearing-module">
-                    <label class="properties">Shearing</label>
-                    <input class="properties-input" type="text" id="txt1-4" onchange="updateShearing(0,'txt')">
-                    <input type="range" class="range-bar" id="rb1-4" min=-270 max=270 step=5 onchange="updateShearing(0,'rb')">
-                </div>
-
-            </div>
-            <div class="sub-panel" id="item1-subpanel-3">
-                <h3>Options</h3>
-                <button class="options" id="AR1" onclick="autoRotateSwitch(0)" style="background-color: blue;">Auto rotation</button>
-                <button class="options" id="C1" onclick="crazySwitch(0)">Crazy</button>
-                <button class="options" id="D1" onclick="dancingSwitch(0)">Dancing</button>
-            </div>
-        </div>
-
-        <div id="item2-panel" class="tab-content">
-            <div class="sub-panel" id="item2-subpanel-1">
-                <h3>Shader</h3>
-                <select class="selector" id="SS2" onchange="updateShader(1, value)">
-                    <option value="Flat">Flat</option>
-                    <option value="Gouraud">Gouraud</option>
-                    <option value="Phong">Phong</option>
-                </select>
-                <h3>Model</h3>
-                <select class="selector" onchange="updateModel(1, value)">
-                    <option value="Teapot">Teapot</option>
-                    <option value="Kangaroo">Kangaroo</option>
-                    <option value="Easter">Easter</option>
-                    <option value="Hide">Hide</option>
-                </select>
-            </div>
-            <div class="sub-panel" id="item2-subpanel-2">
-                    
-                <div class="translation-module">
-                    <label class="properties">Translation</label>
-                    <input class="properties-input" type="text" id="txt2-1" onchange="updateLocation(1,'txt')">
-                    <input class="range-bar" type="range" id="rb2-1" min=-100 max=100 onchange="updateLocation(1,'rb')">
-                    <select style="font-size: 16;" id="sb2-1" onchange="updateLocation(1,'sb')">
-                        <option value="x">x</option>
-                        <option value="y">y</option>
-                        <option value="z">z</option>
-                    </select>
-                </div>
-
-                <div class="rotation-module">
-                    <label class="properties">Rotation</label>
-                    <input class="properties-input" type="text" id="txt2-2" onchange="updateRotation(1,'txt')">
-                    <input type="range" class="range-bar" id="rb2-2" min=-1200 max=1200 onchange="updateRotation(1,'rb')">
-                    <select style="font-size: 16;" id="sb2-2" onchange="updateRotation(1,'sb')">
-                        <option>x</option>
-                        <option>y</option>
-                        <option>z</option>
-                    </select>
-                </div>
-
-                <div class="scaling-module">
-                    <label class="properties">Scaling</label>
-                    <input class="properties-input" type="text" id="txt2-3" onchange="updateScaling(1,'txt')">
-                    <input type="range" class="range-bar" id="rb2-3" min=0 max=50 step=0.05 onchange="updateScaling(1,'rb')">
-                    <select style="font-size: 16;" id="sb2-3" onchange="updateScaling(1,'sb')">
-                        <option>all </option>
-                        <option>x</option>
-                        <option>y</option>
-                        <option>z</option>
-                    </select>
-                </div>
-                
-                <div class="shearing-module">
-                    <label class="properties">Shearing</label>
-                    <input class="properties-input" type="text" id="txt2-4" onchange="updateShearing(1,'txt')">
-                    <input type="range" class="range-bar" id="rb2-4" min=-270 max=270 step=5 onchange="updateShearing(1,'rb')">
-                </div>
-
-            </div>
-            <div class="sub-panel" id="item2-subpanel-3">
-                <h3>Options</h3>
-                <button class="options" id="AR2" onclick="autoRotateSwitch(1)" style="background-color: blue;">Auto rotation</button>
-                <button class="options" id="C2" onclick="crazySwitch(1)">Crazy</button>
-                <button class="options" id="D2" onclick="dancingSwitch(1)">Dancing</button>
-            </div>
-        </div>
-
-        <div id="item3-panel" class="tab-content">
-            <div class="sub-panel" id="item3-subpanel-1">
-                <h3>Shader</h3>
-                <select class="selector" id="SS3" onchange="updateShader(2, value)">
-                    <option value="Flat">Flat</option>
-                    <option value="Gouraud">Gouraud</option>
-                    <option value="Phong">Phong</option>
-                </select>
-                <h3>Model</h3>
-                <select class="selector" onchange="updateModel(2, value)">
-                    <option value="Teapot">Teapot</option>
-                    <option value="Kangaroo">Kangaroo</option>
-                    <option value="Easter">Easter</option>
-                    <option value="Hide">Hide</option>
-                </select>
-            </div>
-            <div class="sub-panel" id="item3-subpanel-2">
-                    
-                <div class="translation-module">
-                    <label class="properties">Translation</label>
-                    <input class="properties-input" type="text" id="txt3-1" onchange="updateLocation(2,'txt')">
-                    <input class="range-bar" type="range" id="rb3-1" min=-100 max=100 onchange="updateLocation(2,'rb')">
-                    <select style="font-size: 16;" id="sb3-1" onchange="updateLocation(2,'sb')">
-                        <option value="x">x</option>
-                        <option value="y">y</option>
-                        <option value="z">z</option>
-                    </select>
-                </div>
-
-                <div class="rotation-module">
-                    <label class="properties">Rotation</label>
-                    <input class="properties-input" type="text" id="txt3-2" onchange="updateRotation(2,'txt')">
-                    <input type="range" class="range-bar" id="rb3-2" min=-1200 max=1200 onchange="updateRotation(2,'rb')">
-                    <select style="font-size: 16;" id="sb3-2" onchange="updateRotation(2,'sb')">
-                        <option>x</option>
-                        <option>y</option>
-                        <option>z</option>
-                    </select>
-                </div>
-
-                <div class="scaling-module">
-                    <label class="properties">Scaling</label>
-                    <input class="properties-input" type="text" id="txt3-3" onchange="updateScaling(2,'txt')">
-                    <input type="range" class="range-bar" id="rb3-3" min=0 max=50 step=0.05 onchange="updateScaling(2,'rb')">
-                    <select style="font-size: 16;" id="sb3-3" onchange="updateScaling(2,'sb')">
-                        <option>all </option>
-                        <option>x</option>
-                        <option>y</option>
-                        <option>z</option>
-                    </select>
-                </div>
-                
-                <div class="shearing-module">
-                    <label class="properties">Shearing</label>
-                    <input class="properties-input" type="text" id="txt3-4" onchange="updateShearing(2,'txt')">
-                    <input type="range" class="range-bar" id="rb3-4" min=-270 max=270 step=5 onchange="updateShearing(2,'rb')">
-                </div>
-
-            </div>
-            <div class="sub-panel" id="item3-subpanel-3">
-                <h3>Options</h3>
-                <button class="options" id="AR3" onclick="autoRotateSwitch(2)" style="background-color: blue;">Auto rotation</button>
-                <button class="options" id="C3" onclick="crazySwitch(2)">Crazy</button>
-                <button class="options" id="D3" onclick="dancingSwitch(2)">Dancing</button>
-            </div>
-        </div>
-
-        <div id="light1-panel" class="tab-content">
-            <p>This is content in light1-panel</p>
-        </div>
-
-        <div id="light2-panel" class="tab-content">
-            <p>This is content in light2-panel</p>
-        </div>
-
-        <div id="light3-panel" class="tab-content">
-            <p>This is content in light3-panel</p>
-        </div> -->
-
+        <div class="panel" id="panel-7"></div>
+        <div class="panel" id="panel-8"></div>
     </div>
 
     

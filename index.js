@@ -191,11 +191,103 @@ function init(){
 
         get(`SH${i}-RB`).value = config.item[i].shear;
         get(`SH${i}-VB`).value = config.item[i].shear;
+
+        get(`KA${i}-RB`).value = config.item[i].Ka;
+        get(`KA${i}-VB`).value = config.item[i].Ka;
+
+        get(`KD${i}-RB`).value = config.item[i].Kd;
+        get(`KD${i}-VB`).value = config.item[i].Kd;
+
+        get(`KS${i}-RB`).value = config.item[i].Ks;
+        get(`KS${i}-VB`).value = config.item[i].Ks;
+
+        get(`SN${i}-RB`).value = config.item[i].Shininess;
+        get(`SN${i}-VB`).value = config.item[i].Shininess;
     }
 }
 init();
     
 // Interact Block 3
+function updateKa(id, src, value=0){
+    let VB = document.getElementById(`KA${id}-VB`);
+    let RB = document.getElementById(`KA${id}-RB`);
+
+    if(src === "VB"){
+        value = VB.value;
+        RB.value = value;
+    }
+    else if(src === "RB"){
+        value = RB.value;
+        VB.value = value
+    }
+    else{
+        RB.value = value;
+        VB.value = value;
+    }
+
+    config.item[id].Ka = value;
+}
+function updateKd(id, src, value=0){
+    let VB = document.getElementById(`KD${id}-VB`);
+    let RB = document.getElementById(`KD${id}-RB`);
+
+    if(src === "VB"){
+        value = VB.value;
+        RB.value = value;
+    }
+    else if(src === "RB"){
+        value = RB.value;
+        VB.value = value
+    }
+    else{
+        RB.value = value;
+        VB.value = value;
+    }
+
+    config.item[id].Kd = value;
+}
+function updateKs(id, src, value=0){
+    let VB = document.getElementById(`KS${id}-VB`);
+    let RB = document.getElementById(`KS${id}-RB`);
+
+    if(src === "VB"){
+        value = VB.value;
+        RB.value = value;
+    }
+    else if(src === "RB"){
+        value = RB.value;
+        VB.value = value
+    }
+    else{
+        RB.value = value;
+        VB.value = value;
+    }
+
+    config.item[id].Ks = value;
+}
+function updateShininess(id, src, value=0){
+    let VB = document.getElementById(`SN${id}-VB`);
+    let RB = document.getElementById(`SN${id}-RB`);
+
+    if(src === "VB"){
+        value = VB.value;
+        RB.value = value;
+    }
+    else if(src === "RB"){
+        value = RB.value;
+        VB.value = value
+    }
+    else{
+        RB.value = value;
+        VB.value = value;
+    }
+
+    config.item[id].Shininess = value;
+}
+
+
+
+// other thing
 function autoRotateSwitch(id){
     let btn = document.getElementById("AR"+(id+1).toString());
     config.item[id].autoRotate = !config.item[id].autoRotate;

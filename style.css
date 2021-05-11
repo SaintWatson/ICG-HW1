@@ -56,9 +56,6 @@
     grid-column: 0/2;
 }
 /* control-box */
-.control-box{
-
-}
 .control-box-4{
     display: grid;
     grid-template-columns: 60% 40%;
@@ -67,7 +64,6 @@
 .ppt-title{
     font-weight: bold;
     font-size: 20;
-    /* display: inline; */
 }
 .selector-B{
     width: 75%;
@@ -81,6 +77,9 @@
 }
 .range-bar{
     margin-top: 5%;
+}
+.range-bar-tx{
+    height: 60%;
 }
 .value-box{
     height: 60%;
