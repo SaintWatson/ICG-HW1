@@ -13,7 +13,7 @@ function getTab(ID){
 
 }
 
-// Interact Block 1
+// Item Interact Block 1
 
 // shader
 function updateShader(id, value){
@@ -26,7 +26,7 @@ function updateModel(id, value){
     init();
 }
 
-// Interact Block 2
+// Item Interact Block 2
 let dimToIndex = {
     "x": 0,
     "y": 1,
@@ -175,7 +175,7 @@ function init(){
     
     let get = document.getElementById.bind(document);
 
-    for(let i=0 ; i<1 ; i++){
+    for(let i=0 ; i<3 ; i++){
 
         get(`SD${i}`).value = config.item[i].shader;
 
@@ -204,10 +204,12 @@ function init(){
         get(`SN${i}-RB`).value = config.item[i].Shininess;
         get(`SN${i}-VB`).value = config.item[i].Shininess;
     }
+    let initPanel = get("tab-0");
+    initPanel.click()
 }
 init();
     
-// Interact Block 3
+// Item Interact Block 3
 function updateKa(id, src, value=0){
     let VB = document.getElementById(`KA${id}-VB`);
     let RB = document.getElementById(`KA${id}-RB`);
@@ -287,7 +289,7 @@ function updateShininess(id, src, value=0){
 
 
 
-// other thing
+// option
 function autoRotateSwitch(id){
     let btn = document.getElementById("AR"+(id+1).toString());
     config.item[id].autoRotate = !config.item[id].autoRotate;
