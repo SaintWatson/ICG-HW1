@@ -45,11 +45,11 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 0% 50% 50%;
 }
-.pTitle{
+.p-title{
     color: blue;
     font-weight: bold;
 }
-.pTitle-B{
+.p-Title-B{
     color: blue;
     font-weight: bold;
     grid-row: 0;

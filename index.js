@@ -175,7 +175,7 @@ function init(){
     
     let get = document.getElementById.bind(document);
 
-    for(let i=0 ; i<3 ; i++){
+    for(let i=0 ; i<1 ; i++){
 
         get(`SD${i}`).value = config.item[i].shader;
 
@@ -203,8 +203,20 @@ function init(){
 
         get(`SN${i}-RB`).value = config.item[i].Shininess;
         get(`SN${i}-VB`).value = config.item[i].Shininess;
+
+        get(`R${i}-RB`).value = config.light[i].color[0];
+        get(`R${i}-VB`).value = config.light[i].color[0];
+
+        get(`G${i}-RB`).value = config.light[i].color[1];
+        get(`G${i}-VB`).value = config.light[i].color[1];
+
+        get(`B${i}-RB`).value = config.light[i].color[2];
+        get(`B${i}-VB`).value = config.light[i].color[2];
+
+        get(`A${i}-RB`).value = config.light[i].color[0];
+        get(`A${i}-VB`).value = config.light[i].color[0];
     }
-    let initPanel = get("tab-0");
+    let initPanel = get("tab-3");
     initPanel.click()
 }
 init();
@@ -287,7 +299,104 @@ function updateShininess(id, src, value=0){
     config.item[id].Shininess = value;
 }
 
+// Light Interact Block 1
+function updateColor(id, src, channel, value=0){
+    let RVB = document.getElementById(`R${id}-VB`);
+    let RRB = document.getElementById(`R${id}-RB`);
+    let GVB = document.getElementById(`G${id}-VB`);
+    let GRB = document.getElementById(`G${id}-RB`);
+    let BVB = document.getElementById(`B${id}-VB`);
+    let BRB = document.getElementById(`B${id}-RB`);
+    let AVB = document.getElementById(`A${id}-VB`);
+    let ARB = document.getElementById(`A${id}-RB`);
 
+    if(channel === "R"){
+        switch(src){
+            case "VB":
+                value = RVB.value;
+                RRB.value = value;
+                break;
+            case "RB":
+                value = RRB.value;
+                RVB.value = value;
+                break;
+            default:
+                RRB.value = value;
+                RVB.value = value;
+        }
+        config.light[id].color[0] = value;
+    }
+    else if(channel === "G"){
+        switch(src){
+            case "VB":
+                value = GVB.value;
+                GRB.value = value;
+                break;
+            case "RB":
+                value = GRB.value;
+                GVB.value = value;
+                break;
+            default:
+                GRB.value = value;
+                GVB.value = value;
+        }
+        config.light[id].color[1] = value;
+    }
+    else if(channel === "B"){
+        switch(src){
+            case "VB":
+                value = BVB.value;
+                BRB.value = value;
+                break;
+            case "RB":
+                value = BRB.value;
+                BVB.value = value;
+                break;
+            default:
+                BRB.value = value;
+                BVB.value = value;
+        }
+        config.light[id].color[2] = value;
+    }
+    else{
+        switch(src){
+            case "VB":
+                value = AVB.value;
+                RVB.value = value;
+                GVB.value = value;
+                BVB.value = value;
+                RRB.value = value;
+                GRB.value = value;
+                BRB.value = value;
+                ARB.value = value;
+                break;
+
+            case "RB":
+                value = ARB.value;
+                RVB.value = value;
+                GVB.value = value;
+                BVB.value = value;
+                RRB.value = value;
+                GRB.value = value;
+                BRB.value = value;
+                AVB.value = value;
+                break;
+
+            default:
+                AVB.value = value;
+                RVB.value = value;
+                GVB.value = value;
+                BVB.value = value;
+
+                ARB.value = value;
+                RRB.value = value;
+                GRB.value = value;
+                BRB.value = value;
+                break;
+        }
+        config.light[id].color = [value, value, value];
+    }
+}
 
 // option
 function autoRotateSwitch(id){
