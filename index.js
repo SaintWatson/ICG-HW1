@@ -372,6 +372,41 @@ function updateLightPosition(id, src, dim, value=0){
     config.light[id].position[index] = value;
 }
 
+// Light Interact Block 3
+function updateByColorPad(id){
+    let pad = document.getElementById(`CL${id}`);
+    let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(pad.value);
+
+    let ratio = 64;
+    let R = parseInt(result[1], 16) / ratio;
+    let G = parseInt(result[2], 16) / ratio;
+    let B = parseInt(result[3], 16) / ratio;
+
+    updateColor(id, "pad", "R", R);
+    updateColor(id, "pad", "G", G);
+    updateColor(id, "pad", "B", B);
+
+}
+
+function updateByColorButton(id, btn_id){
+
+    let R = 4 - Math.floor(btn_id / 9) * 2;
+    let G = 4 - Math.floor((btn_id % 9) / 3) * 2;
+    let B = 4 - (btn_id % 3) * 2;
+
+    updateColor(id, "btn", "R", R);
+    updateColor(id, "btn", "G", G);
+    updateColor(id, "btn", "B", B);
+
+    let pad = document.getElementById(`CL${id}`);
+    let tran = {
+        0: "00",
+        2: "80",
+        4: "ff"
+    };
+    pad.value = `#${tran[R]}${tran[G]}${tran[B]}`;
+}
+
 // option
 function autoRotateSwitch(id){
     let btn = document.getElementById("AR"+(id+1).toString());
@@ -405,7 +440,7 @@ function init(){
     
     let get = document.getElementById.bind(document);
 
-    for(let i=0 ; i<1 ; i++){
+    for(let i=0 ; i<3 ; i++){
 
         get(`SD${i}`).value = config.item[i].shader;
 
@@ -455,7 +490,7 @@ function init(){
         get(`Z${i}-RB`).value = config.light[i].position[2];
         get(`Z${i}-VB`).value = config.light[i].position[2];
     }
-    let initPanel = get("tab-3");
+    let initPanel = get("tab-0");
     initPanel.click()
 }
 init();
