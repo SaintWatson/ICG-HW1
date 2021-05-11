@@ -171,55 +171,7 @@ function updateShearing(id, src, value=0){
     config.item[id].shear = value;
 }
 
-function init(){
-    
-    let get = document.getElementById.bind(document);
 
-    for(let i=0 ; i<1 ; i++){
-
-        get(`SD${i}`).value = config.item[i].shader;
-
-        get(`TL${i}-RB`).value = getLocation(i,"x");
-        get(`TL${i}-VB`).value = getLocation(i,"x");
-
-        get(`RT${i}-RB`).value = config.item[i].rotation.degree;
-        get(`RT${i}-VB`).value = config.item[i].rotation.degree;
-        get(`RT${i}-SB`).value = getRotation(i);
-
-        get(`SC${i}-RB`).value = getScaleRatio(i,"x");
-        get(`SC${i}-VB`).value = getScaleRatio(i,"x");
-
-        get(`SH${i}-RB`).value = config.item[i].shear;
-        get(`SH${i}-VB`).value = config.item[i].shear;
-
-        get(`KA${i}-RB`).value = config.item[i].Ka;
-        get(`KA${i}-VB`).value = config.item[i].Ka;
-
-        get(`KD${i}-RB`).value = config.item[i].Kd;
-        get(`KD${i}-VB`).value = config.item[i].Kd;
-
-        get(`KS${i}-RB`).value = config.item[i].Ks;
-        get(`KS${i}-VB`).value = config.item[i].Ks;
-
-        get(`SN${i}-RB`).value = config.item[i].Shininess;
-        get(`SN${i}-VB`).value = config.item[i].Shininess;
-
-        get(`R${i}-RB`).value = config.light[i].color[0];
-        get(`R${i}-VB`).value = config.light[i].color[0];
-
-        get(`G${i}-RB`).value = config.light[i].color[1];
-        get(`G${i}-VB`).value = config.light[i].color[1];
-
-        get(`B${i}-RB`).value = config.light[i].color[2];
-        get(`B${i}-VB`).value = config.light[i].color[2];
-
-        get(`A${i}-RB`).value = config.light[i].color[0];
-        get(`A${i}-VB`).value = config.light[i].color[0];
-    }
-    let initPanel = get("tab-3");
-    initPanel.click()
-}
-init();
     
 // Item Interact Block 3
 function updateKa(id, src, value=0){
@@ -398,6 +350,28 @@ function updateColor(id, src, channel, value=0){
     }
 }
 
+// Light Interact Block 2
+function updateLightPosition(id, src, dim, value=0){
+    let RB = document.getElementById(`${dim.toUpperCase()}${id}-RB`);
+    let VB = document.getElementById(`${dim.toUpperCase()}${id}-VB`);
+    switch(src){
+        case "RB":
+            value = RB.value;
+            VB.value = value;
+            break;
+        case "VB":
+            value = VB.value;
+            RB.value = value;
+            break;
+        default:
+            VB.value = value;
+            RB.value = value;
+            break;
+    }
+    let index = dimToIndex[dim];
+    config.light[id].position[index] = value;
+}
+
 // option
 function autoRotateSwitch(id){
     let btn = document.getElementById("AR"+(id+1).toString());
@@ -426,3 +400,62 @@ function dancingSwitch(id){
     else
         btn.style.backgroundColor = '#FF0000';
 } 
+
+function init(){
+    
+    let get = document.getElementById.bind(document);
+
+    for(let i=0 ; i<1 ; i++){
+
+        get(`SD${i}`).value = config.item[i].shader;
+
+        get(`TL${i}-RB`).value = getLocation(i,"x");
+        get(`TL${i}-VB`).value = getLocation(i,"x");
+
+        get(`RT${i}-RB`).value = config.item[i].rotation.degree;
+        get(`RT${i}-VB`).value = config.item[i].rotation.degree;
+        get(`RT${i}-SB`).value = getRotation(i);
+
+        get(`SC${i}-RB`).value = getScaleRatio(i,"x");
+        get(`SC${i}-VB`).value = getScaleRatio(i,"x");
+
+        get(`SH${i}-RB`).value = config.item[i].shear;
+        get(`SH${i}-VB`).value = config.item[i].shear;
+
+        get(`KA${i}-RB`).value = config.item[i].Ka;
+        get(`KA${i}-VB`).value = config.item[i].Ka;
+
+        get(`KD${i}-RB`).value = config.item[i].Kd;
+        get(`KD${i}-VB`).value = config.item[i].Kd;
+
+        get(`KS${i}-RB`).value = config.item[i].Ks;
+        get(`KS${i}-VB`).value = config.item[i].Ks;
+
+        get(`SN${i}-RB`).value = config.item[i].Shininess;
+        get(`SN${i}-VB`).value = config.item[i].Shininess;
+
+        get(`R${i}-RB`).value = config.light[i].color[0];
+        get(`R${i}-VB`).value = config.light[i].color[0];
+
+        get(`G${i}-RB`).value = config.light[i].color[1];
+        get(`G${i}-VB`).value = config.light[i].color[1];
+
+        get(`B${i}-RB`).value = config.light[i].color[2];
+        get(`B${i}-VB`).value = config.light[i].color[2];
+
+        get(`A${i}-RB`).value = config.light[i].color[0];
+        get(`A${i}-VB`).value = config.light[i].color[0];
+
+        get(`X${i}-RB`).value = config.light[i].position[0];
+        get(`X${i}-VB`).value = config.light[i].position[0];
+
+        get(`Y${i}-RB`).value = config.light[i].position[1];
+        get(`Y${i}-VB`).value = config.light[i].position[1];
+
+        get(`Z${i}-RB`).value = config.light[i].position[2];
+        get(`Z${i}-VB`).value = config.light[i].position[2];
+    }
+    let initPanel = get("tab-3");
+    initPanel.click()
+}
+init();

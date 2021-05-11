@@ -366,8 +366,25 @@
                 </div>
             </fieldset>
             
-            <fieldset class="sub-panel">
+            <fieldset class="sub-panel" style="display: grid; grid-template-rows: 1% 33% 33% 33%;">
                 <legend class="p-title">Light Position</legend>
+                <div class="control-box" style="display: grid; grid-template-columns: 10% 70% 30%;">
+                    <div class="ppt-title">X</div>
+                    <input type="range" class="range-bar-tx" id="X0-RB" min=-150 max=150 step=5 onchange="updateLightPosition(0, 'RB', 'x')">
+                    <input type="text" class="value-box" id="X0-VB" style="height: 40%;" onchange="updateLightPosition(0, 'VB', 'x')">
+                </div>
+        
+                <div class="control-box" style="display: grid; grid-template-columns: 10% 70% 30%;">
+                    <div class="ppt-title">Y</div>
+                    <input type="range" class="range-bar-tx" id="Y0-RB" min=-150 max=150 step=5 onchange="updateLightPosition(0, 'RB', 'y')">
+                    <input type="text" class="value-box" id="Y0-VB" style="height: 40%;" onchange="updateLightPosition(0, 'VB', 'y')">
+                </div>
+        
+                <div class="control-box" style="display: grid; grid-template-columns: 10% 70% 30%;">
+                    <div class="ppt-title">Z</div>
+                    <input type="range" class="range-bar-tx" id="Z0-RB" min=-150 max=150 step=5 onchange="updateLightPosition(0, 'RB', 'z')">
+                    <input type="text" class="value-box" id="Z0-VB" style="height: 40%;" onchange="updateLightPosition(0, 'VB', 'z')">
+                </div>
             </fieldset>
             
             <fieldset class="sub-panel-B" style="grid-column: 3/5; grid-template-columns: 30% 70%;">
