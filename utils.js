@@ -309,7 +309,7 @@ function drawScene() {
                 item.rotation.direction = [0.0, 0.0, 1.0];
                 item.location[1] = 0;
             }
-            
+            console.log("newload");
             item.newload = false;
         }
         

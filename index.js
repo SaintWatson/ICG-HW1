@@ -108,6 +108,7 @@ function getTimeArg(range, type){
 // shader
 function updateShader(id, value){
     config.item[id].shader = value;
+    init();
 }
 // model
 function updateModel(id, value){
@@ -129,7 +130,7 @@ function getLocation(id, dim){
     let index = dimToIndex[dim];
     return config.item[id].location[index];
 }
-function updateLocation(id, src, value=0){
+function updateLocation(id, src, value=0, dim="AUTO"){
 
     let VB = document.getElementById(`TL${id}-VB`);
     let SB = document.getElementById(`TL${id}-SB`);
@@ -150,12 +151,18 @@ function updateLocation(id, src, value=0){
         value = VB.value;
         RB.value = value;
     }
+
     else{
         RB.value = value;
         VB.value = value;
     }
 
-    let index = dimToIndex[SB.value];
+    var index;
+    if(dim == "AUTO")
+        index = dimToIndex[SB.value];
+    else
+        index = dimToIndex[dim];
+
     config.item[id].location[index] = value;
 }
 
@@ -169,13 +176,15 @@ function getRotation(id){
     else if(direction[2] != 0)
         return "z";
 }
-function updateRotation(id, src, value=0){
+function updateRotation(id, src, value=0, dim="AUTO"){
 
     let VB = document.getElementById(`RT${id}-VB`);
     let SB = document.getElementById(`RT${id}-SB`);
     let RB = document.getElementById(`RT${id}-RB`);
 
     if(src === "SB"){
+        if(dim !== "AUTO")
+            SB.value = dim;
         if(SB.value == "x")
             config.item[id].rotation.direction = [1.0, 0.0, 0.0];
         else if(SB.value == "y")
@@ -209,7 +218,7 @@ function getScaleRatio(id, dim){
     let index = dimToIndex[dim];
     return config.item[id].scaling.ratio[index];
 }
-function updateScaling(id, src, value=0){
+function updateScaling(id, src, value=0, dim="AUTO"){
 
     let VB = document.getElementById(`SC${id}-VB`);
     let SB = document.getElementById(`SC${id}-SB`);
@@ -222,21 +231,36 @@ function updateScaling(id, src, value=0){
     }
 
     else if(src === "RB"){
-        value = RB.value;
+        value = Number(RB.value);
         VB.value = value;
     }
     else if(src === "VB"){
-        value = VB.value;
+        value = Number(VB.value);
         RB.value = value;
     }
+    else{
+        VB.value = value.toString();
+        RB.value = value.toString();
+    }
 
-    let index = dimToIndex[SB.value];
-    if(index == 3)
-        config.item[id].scaling.ratio = [value, value, value];
+    var index;
+    
+    if(dim === "AUTO")
+        index = dimToIndex[SB.value];
     else
+        index = dimToIndex[dim];
+    
+    
+    if(index == 3){
+        config.item[id].scaling.ratio[0] = value;
+        config.item[id].scaling.ratio[1] = value;
+        config.item[id].scaling.ratio[2] = value;
+    }
+    else{
         config.item[id].scaling.ratio[index] = value;
+    }
 
-    console.log(config.item[id].scaling);
+
 }
 
 // shearing
@@ -650,6 +674,14 @@ function changingSwitch(id){
     return 0;
 }
 
+
+
+// Theme
+let modeStatus = {
+    "disco": false,
+    "concert": false,
+    "teapot": false
+}
 function init(){
     
     let get = document.getElementById.bind(document);
@@ -714,8 +746,100 @@ function init(){
         get(`V${i}`).style.backgroundColor = boolColor[config.item[i].vibing];
 
     }
-    let initPanel = get("tab-6");
-    initPanel.click()
+    
 }
-
 init();
+document.getElementById('tab-7').click();
+
+function DiscoMode(){
+    let btn = document.getElementsByClassName("img-btn")[0];
+
+    if(!modeStatus.disco){
+        modeStatus.disco = true;
+        btn.style.filter = "grayscale(0%)";
+        
+        updateModel(0, "Kangaroo");
+        updateModel(2, "Kangaroo");
+
+        updateShader(0, "Gouraud");
+        updateShader(1,"Flat");
+        updateShader(2, "Gouraud");
+
+        updateLocation(0, "Disco", -80, "x");
+        updateLocation(2, "Disco", 80, "x");
+        updateRotation(0, "Disco", -35, "y");
+        updateRotation(2, "Disco", 35, "y");
+
+        updateScaling(1, "Disco", 2, "all");
+        updateLocation(1, "Disco", 35, "y");
+        updateRotation(1, "Disco", 200);
+        changingSwitch(1);
+
+
+        vibingSwitch(0);
+        vibingSwitch(2);
+        autoRotateSwitch(0);
+        autoRotateSwitch(2);
+
+    }
+    else{
+        modeStatus.disco = false;
+        btn.style.filter = "grayscale(100%)";
+
+        changingSwitch(1);
+        autoRotateSwitch(0);
+        autoRotateSwitch(2);
+
+        updateColor(1, "Disco", "A", 1);
+        updateLocation(1, "Disco", 0, "y");
+        updateRotation(1, "Disco", 35);
+        vibingSwitch(0);
+        vibingSwitch(2);
+
+
+    }
+}
+function ConcertMode(){
+    let btn = document.getElementsByClassName("img-btn")[1];
+
+    if(!modeStatus.concert){
+        modeStatus.concert = true;
+        btn.style.filter = "grayscale(0%)";
+
+        updateShader(0,"Gouraud");
+        updateShader(1,"Gouraud");
+        updateShader(2,"Gouraud");
+
+
+        updateModel(0, "Easter");
+        updateModel(1, "Easter");
+        updateModel(2, "Easter");
+
+        autoRotateSwitch(0);
+        autoRotateSwitch(1);
+        autoRotateSwitch(2);
+
+        updateColor(0, "Concert", "R", 4);
+        updateColor(1, "Concert", "G", 4);
+        updateColor(2, "Concert", "B", 4);
+
+        flashingSwitch(2);
+        movingSwitch(1);
+    }
+    else{
+        modeStatus.concert = false;
+        btn.style.filter = "grayscale(100%)";
+
+        updateColor(0, "Concert", "A", 1);
+        updateColor(1, "Concert", "A", 1);
+        updateColor(2, "Concert", "A", 1);
+
+        autoRotateSwitch(0);
+        autoRotateSwitch(1);
+        autoRotateSwitch(2);
+
+        flashingSwitch(2);
+        movingSwitch(1);
+
+    }
+}
