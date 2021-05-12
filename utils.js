@@ -71,7 +71,7 @@ let config = {
             model: "Teapot",
             autoRotate: true, 
             crazy: false,
-            dancing: false,
+            vibing: false,
             newload: true
         },
         { // item2
@@ -94,7 +94,7 @@ let config = {
             model: "Teapot",
             autoRotate: true, 
             crazy: false,
-            dancing: false,            
+            vibing: false,            
             newload: true
         },
         { // item3
@@ -117,7 +117,7 @@ let config = {
             model: "Teapot",
             autoRotate: true, 
             crazy: false,
-            dancing: false,
+            vibing: false,
             newload: true
         },
     ]
@@ -332,7 +332,7 @@ function drawScene() {
         let ratio = item.scaling.ratio.slice();
         let scaling = item.scaling.default.slice();
 
-        if(item.dancing){
+        if(item.vibing){
             let now = new Date().getTime() % 200;
             if(now > 100)   
                 ratio = ratio.map( a => a*1.2);
