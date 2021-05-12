@@ -72,7 +72,6 @@ let config = {
             autoRotate: true, 
             crazy: false,
             vibing: false,
-            newload: true
         },
         { // item2
             shader: 'Gouraud', 
@@ -95,7 +94,6 @@ let config = {
             autoRotate: true, 
             crazy: false,
             vibing: false,            
-            newload: true
         },
         { // item3
             shader: 'Phong', 
@@ -118,7 +116,6 @@ let config = {
             autoRotate: true, 
             crazy: false,
             vibing: false,
-            newload: true
         },
     ]
 }

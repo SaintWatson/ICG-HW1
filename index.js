@@ -786,6 +786,8 @@ function Cleanup(){
                     updateModel(i, config.item[i].model);
                 }
 
+                gl.clearColor(0.0, 0.2, 0.2, 1.0);
+
                 updateRotation(i, "Cleanup", 35);
                 updateScaling(i, "Cleanup", 1);
                 updateShearing(i, "Cleanup", 90);
@@ -796,8 +798,6 @@ function Cleanup(){
                 updateShininess(i, "Cleanup", 0.5);
 
                 updateColor(i, "Cleanup", "A", 1);
-
-                console.log(lightPanel[i].moving.status);
 
                 if(lightPanel[i].flashing.status)
                     flashingSwitch(i);
@@ -814,9 +814,6 @@ function Cleanup(){
                     vibingSwitch(i);
 
                 modeStatus[mode] = false;
-
-                console.log(lightPanel);
-
             }
             return;
         }
@@ -830,7 +827,9 @@ function DiscoMode(){
         Cleanup();
         modeStatus.disco = true;
         btn.style.filter = "grayscale(0%)";
-        
+        gl.clearColor(0.2, 0.2, 0.2, 1.0);
+
+
         updateModel(0, "Kangaroo");
         updateModel(1, "Teapot");
         updateModel(2, "Kangaroo");
@@ -868,6 +867,7 @@ function ConcertMode(){
         Cleanup();
         modeStatus.concert = true;
         btn.style.filter = "grayscale(0%)";
+        gl.clearColor(0.2, 0.1, 0.2, 1.0);
 
         updateShader(0,"Gouraud");
         updateShader(1,"Gouraud");
@@ -902,6 +902,7 @@ function AngryMode(){
         Cleanup();
         modeStatus.angry = true;
         btn.style.filter = "grayscale(0%)";
+        gl.clearColor(0.4, 0.3, 0.2, 1.0);
 
         updateShader(1,"Gouraud");
 
@@ -932,6 +933,7 @@ function RushmoreMode(){
         Cleanup();
         modeStatus.Rushmore = true;
         btn.style.filter = "grayscale(0%)";
+        gl.clearColor(0.0, 0.5, 0.7, 1.0);
 
         updateModel(0,"Easter");
         updateModel(1,"Easter");
