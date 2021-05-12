@@ -506,17 +506,21 @@ function updateByColorButton(id, btn_id){
 }
 
 
+const blue = '#0000FF';
+const white = '#FFFFFF';
 // feature 1
 function autoRotateSwitch(id){
     let btn = document.getElementById(`AR${id}`);
 
     if(config.item[id].autoRotate){
         config.item[id].autoRotate = false;
-        btn.style.backgroundColor = '#FF0000'; // red
+        btn.style.backgroundColor = white;
+        btn.style.color = blue;
     }
     else{
         config.item[id].autoRotate = true;
-        btn.style.backgroundColor = '#0000FF'; // blue
+        btn.style.backgroundColor = blue;
+        btn.style.color = white; 
     }
 } 
 function crazyRotateSwitch(id){
@@ -524,11 +528,13 @@ function crazyRotateSwitch(id){
 
     if(config.item[id].crazy){
         config.item[id].crazy = false;
-        btn.style.backgroundColor = '#FF0000';
+        btn.style.backgroundColor = white;
+        btn.style.color = blue;
     }
     else{
         config.item[id].crazy = true;
-        btn.style.backgroundColor = '#0000FF';
+        btn.style.backgroundColor = blue;
+        btn.style.color = white;
     }
 } 
 function vibingSwitch(id){
@@ -536,11 +542,13 @@ function vibingSwitch(id){
 
     if(config.item[id].vibing){
         config.item[id].vibing = false;
-        btn.style.backgroundColor = '#FF0000';
+        btn.style.backgroundColor = white;
+        btn.style.color = blue;
     }
     else{
         config.item[id].vibing = true;
-        btn.style.backgroundColor = '#0000FF';
+        btn.style.backgroundColor = blue;
+        btn.style.color = white;
     }
 } 
 
@@ -565,7 +573,8 @@ function flashingSwitch(id){
         flash.dG = setInterval(updateColor, inteval * 2, id, 'flash' ,'G', flash.origin_color[1]);
         flash.dB = setInterval(updateColor, inteval * 2, id, 'flash' ,'B', flash.origin_color[2]);
         
-        document.getElementById(`FL${id}`).style.backgroundColor='#0000FF';
+        document.getElementById(`FL${id}`).style.backgroundColor=blue;
+        document.getElementById(`FL${id}`).style.color=white;
     }
     else{
         
@@ -579,7 +588,8 @@ function flashingSwitch(id){
         
         
         flash.status = false;
-        document.getElementById(`FL${id}`).style.backgroundColor='#FF0000';
+        document.getElementById(`FL${id}`).style.backgroundColor=white;
+        document.getElementById(`FL${id}`).style.color=blue;
     }
 
 }
@@ -596,7 +606,8 @@ function movingSwitch(id){
 
         move.status = true;
         move.origin_position = config.light[id].position;
-        document.getElementById(`MV${id}`).style.backgroundColor='#0000FF';
+        document.getElementById(`MV${id}`).style.backgroundColor=blue;
+        document.getElementById(`MV${id}`).style.color=white;
     }
     else{
         clearInterval(move.mX);
@@ -608,7 +619,8 @@ function movingSwitch(id){
         updateLightPosition(id, 'move', 'y', move.origin_position[1]);
         updateLightPosition(id, 'move', 'z', move.origin_position[2]);
 
-        document.getElementById(`MV${id}`).style.backgroundColor='#FF0000';
+        document.getElementById(`MV${id}`).style.backgroundColor=white;
+        document.getElementById(`MV${id}`).style.color=blue;
     }
 }
 function changingSwitch(id){
@@ -623,7 +635,8 @@ function changingSwitch(id){
         change.A = setInterval(updateColor, inteval, id, 'change' ,'R', AUTO, "cos");
         change.B = setInterval(updateColor, inteval, id, 'change' ,'G', AUTO, "sin");
         
-        document.getElementById(`CH${id}`).style.backgroundColor='#0000FF';
+        document.getElementById(`CH${id}`).style.backgroundColor=blue;
+        document.getElementById(`CH${id}`).style.color=white;
     }
     else{
         
@@ -631,7 +644,8 @@ function changingSwitch(id){
         clearInterval(change.B);
         
         change.status = false;
-        document.getElementById(`CH${id}`).style.backgroundColor='#FF0000';
+        document.getElementById(`CH${id}`).style.backgroundColor=white;
+        document.getElementById(`CH${id}`).style.color=blue;
     }
     return 0;
 }
@@ -640,8 +654,8 @@ function init(){
     
     let get = document.getElementById.bind(document);
     let boolColor = {
-        true: '#0000FF',
-        false: '#FF0000'
+        true: blue,
+        false: white
     };
 
     for(let i=0 ; i<3 ; i++){
@@ -695,6 +709,7 @@ function init(){
         get(`Z${i}-VB`).value = config.light[i].position[2];
 
         get(`AR${i}`).style.backgroundColor = boolColor[config.item[i].autoRotate];
+        get(`AR${i}`).style.color = boolColor[!config.item[i].autoRotate];
         get(`CR${i}`).style.backgroundColor = boolColor[config.item[i].crazy];
         get(`V${i}`).style.backgroundColor = boolColor[config.item[i].vibing];
 
