@@ -772,7 +772,8 @@ let modeStatus = {
     "disco": false,
     "concert": false,
     "angry": false,
-    "Rushmore": false
+    "Rushmore": false,
+    "battle": false
 }
 function Cleanup(){
 
@@ -838,10 +839,10 @@ function DiscoMode(){
         updateShader(1,"Flat");
         updateShader(2, "Gouraud");
 
-        updateLocation(0, "Disco", -80, "x");
-        updateLocation(2, "Disco", 80, "x");
-        updateRotation(0, "Disco", -35, "y");
-        updateRotation(2, "Disco", 35, "y");
+        updateLocation(0, "Disco", -60, "x");
+        updateLocation(2, "Disco", 60, "x");
+        updateRotation(0, "Disco", 80, "y");
+        updateRotation(2, "Disco", -80, "y");
 
         updateScaling(1, "Disco", 2, "all");
         updateLocation(1, "Disco", 35, "y");
@@ -881,6 +882,10 @@ function ConcertMode(){
         autoRotateSwitch(0);
         autoRotateSwitch(1);
         autoRotateSwitch(2);
+
+        updateRotation(0, "Concert", 0);
+        updateRotation(1, "Concert", 35);
+        updateRotation(2, "Concert", 35);
 
         updateColor(0, "Concert", "R", 4);
         updateColor(1, "Concert", "G", 4);
@@ -939,25 +944,36 @@ function RushmoreMode(){
         updateModel(1,"Easter");
         updateModel(2, "Easter");
 
+        updateShader(1, "Flat");
+        updateShader(2, "Gouraud");
+        updateShader(0, "Phong");
 
-        updateColor(1, "Rushmore", "A", 5);
+        updateColor(0, "Rushmore", "A", 1);
+        updateColor(1, "Rushmore", "A", 2);
+        updateColor(2, "Rushmore", "A", 1);
+
+
         
-        updateLocation(0, "Rushmore", -5, "x");
-        updateShearing(0, "Rushmore", -65);
+        updateLocation(0, "Rushmore", -20, "x");
+        updateScaling(0, "Rushmore", 1.5, "all");
+        updateRotation(0, "Rushmore", -15)
         updateKa(0, "Rushmore", 0.05);
         updateKd(0, "Rushmore", 0.05);
         updateKs(0, "Rushmore", 0.35);
         updateShininess(0, "Rushmore", 0.5);
 
-        updateLocation(0, "Rushmore", -20, "x");
-        updateShearing(1, "Rushmore", -120);
+        updateLocation(1, "Rushmore", -5, "x");
+        updateLocation(1, "Rushmore", -10, "y");
+        updateScaling(1, "Rushmore", 1.5, "all");
+        updateRotation(1, "Rushmore", 30)
         updateKa(1, "Rushmore", 0.05);
         updateKd(1, "Rushmore", 0.05);
         updateKs(1, "Rushmore", 0.35);
         updateShininess(1, "Rushmore", 0.5);
 
-        updateLocation(0, "Rushmore", 20, "x");
-        updateShearing(2, "Rushmore", -130);
+        updateLocation(2, "Rushmore", 8, "x");
+        updateLocation(2, "Rushmore", -10, "y");
+        updateRotation(2, "Rushmore", 35)
         updateKa(2, "Rushmore", 0.05);
         updateKd(2, "Rushmore", 0.05);
         updateKs(2, "Rushmore", 0.35);
@@ -967,6 +983,58 @@ function RushmoreMode(){
         autoRotateSwitch(1);
         autoRotateSwitch(2);
         movingSwitch(1);
+    }
+    else{
+        Cleanup();   
+        btn.style.filter = "grayscale(100%)";
+    }
+}
+function BattleMode(){
+    let btn = document.getElementsByClassName("img-btn")[4];
+
+    if(!modeStatus.battle){
+
+        Cleanup();
+        modeStatus.battle = true;
+        btn.style.filter = "grayscale(0%)";
+        gl.clearColor(0.1, 0.1, 0.1, 1.0);
+
+        updateModel(0,"Kangaroo");
+        updateModel(1,"Easter");
+        updateModel(2,"Kangaroo");
+
+        updateShader(0, "Gouraud");
+        updateShader(1, "Gouraud");
+        updateShader(2, "Gouraud");
+
+        updateColor(0, "battle", "R", 4);
+        updateColor(1, "battle", "A", 1);
+        updateColor(2, "battle", "A", 1);
+        
+        updateLocation(0, "battle", -15, "x");
+        updateLocation(2, "battle", 15, "x");
+
+        updateScaling(0, "battle", 2, "all");
+        updateScaling(2, "battle", 2, "all");
+
+        updateShearing(1, "battle", -2);
+        updateShininess(1, "battle", 0.5);
+
+        
+        autoRotateSwitch(0);
+        autoRotateSwitch(2);
+
+        updateRotation(0, "battle", -270);
+        updateRotation(1, "battle", 540);
+        updateRotation(2, "battle", 270);
+        config.item[1].rotation.direction = [1.0, 1.0, 1.0];
+
+        vibingSwitch(0);
+        vibingSwitch(2);
+        crazyRotateSwitch(1);
+
+        flashingSwitch(0);
+        movingSwitch(0);
     }
     else{
         Cleanup();   

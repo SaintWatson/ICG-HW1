@@ -300,6 +300,8 @@ function drawScene() {
                 item.rotation.lastTime = now;
             mat4.rotate(mvMatrix, degToRad(item.rotation.lastAngle), item.rotation.direction);
         }
+        else
+            mat4.rotate(mvMatrix, degToRad(item.rotation.degree), item.rotation.direction);
 
         // scaling
         let ratio = item.scaling.ratio.slice();
