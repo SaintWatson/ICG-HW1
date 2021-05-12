@@ -289,30 +289,6 @@ function drawScene() {
         // Setup Model-View Matrix
         mat4.identity(mvMatrix);
 
-        // Pre-process for models
-        if(item.newload){
-            if(item.model === "Teapot"){
-                item.scaling.default = [1.0, 1.0, 1.0];
-                item.scaling.ratio = [1.0, 1.0, 1.0];
-                item.rotation.direction = [0.0, 1.0, 0.0];
-                item.location[1] = 0;
-            }
-            else if(item.model === "Kangaroo"){
-                item.scaling.default = [30.0, 30.0, 30.0];
-                item.scaling.ratio = [1.0, 1.0, 1.0];
-                item.rotation.direction = [0.0, 0.0, 1.0];
-                item.location[1] = 20;
-            }
-            else if(item.model === "Easter"){
-                item.scaling.default = [20.0, 20.0, 20.0];
-                item.scaling.ratio = [1.0, 1.0, 1.0];
-                item.rotation.direction = [0.0, 0.0, 1.0];
-                item.location[1] = 0;
-            }
-            console.log("newload");
-            item.newload = false;
-        }
-        
         // translation
         mat4.translate(mvMatrix, item.location);
 

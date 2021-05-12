@@ -1,3 +1,7 @@
+const AUTO = -1;
+const coe = 2 * Math.PI * 0.001;
+document.getElementById('tab-7').click();
+
 function getTab(ID){
 
     let panels = document.getElementsByClassName("panel");
@@ -12,86 +16,6 @@ function getTab(ID){
     tabs[ID].style.backgroundColor = "#ccc";
 
 }
-let lightPanel = [
-    { 
-        flashing: {
-            status: false,
-            bR: 0,
-            bG: 0,
-            bB: 0,
-            dR:0,
-            dG:0,
-            dB:0,
-            origin_color: [],
-        }, 
-        moving: {
-            status: false,
-            mX: 0,
-            mY: 0,
-            mZ: 0,
-            origin_position: []
-        }, 
-        changing: {
-            status: false,
-            A: 0,
-            B: 0,
-            origin_color: []
-        } 
-    },
-    { 
-        flashing: {
-            status: false,
-            bR: 0,
-            bG: 0,
-            bB: 0,
-            dR:0,
-            dG:0,
-            dB:0,
-            origin_color: [],
-        }, 
-        moving: {
-            status: false,
-            mX: 0,
-            mY: 0,
-            mZ: 0,
-            origin_position: []
-        }, 
-        changing: {
-            status: false,
-            A: 0,
-            B: 0,
-            origin_color: []
-        } 
-    },
-    { 
-        flashing: {
-            status: false,
-            bR: 0,
-            bG: 0,
-            bB: 0,
-            dR:0,
-            dG:0,
-            dB:0,
-            origin_color: [],
-        }, 
-        moving: {
-            status: false,
-            mX: 0,
-            mY: 0,
-            mZ: 0,
-            origin_position: []
-        }, 
-        changing: {
-            status: false,
-            A: 0,
-            B: 0,
-            origin_color: []
-        } 
-    }
-]
-const AUTO = -1;
-const coe = 2 * Math.PI * 0.001;
-
 function getTimeArg(range, type){
     let time = new Date().getMilliseconds();
     
@@ -112,8 +36,36 @@ function updateShader(id, value){
 }
 // model
 function updateModel(id, value){
-    config.item[id].newload = true;
-    config.item[id].model = value;
+
+    let item = config.item[id];
+
+    switch(value){
+        case "Teapot":
+            item.scaling.default = [1.0, 1.0, 1.0];
+            item.scaling.ratio = [1.0, 1.0, 1.0];
+            item.rotation.direction = [0.0, 1.0, 0.0];
+            item.location[0] = (id-1) * 40;
+            item.location[1] = 0;
+            item.model = value;
+            break;
+        case "Kangaroo":
+            item.scaling.default = [30.0, 30.0, 30.0];
+            item.scaling.ratio = [1.0, 1.0, 1.0];
+            item.rotation.direction = [0.0, 0.0, 1.0];
+            item.location[1] = 20;
+            item.model = value;
+            break;
+        case "Easter":
+            item.scaling.default = [20.0, 20.0, 20.0];
+            item.scaling.ratio = [1.0, 1.0, 1.0];
+            item.rotation.direction = [0.0, 0.0, 1.0];
+            item.location[0] = (id-1) * 40;
+            item.location[1] = 0;
+            item.model = value;
+            break;
+        default:
+            item.model = value;
+    }
     init();
 }
 
@@ -124,7 +76,6 @@ let dimToIndex = {
     "z": 2,
     "all": 3
 };
-
 // translation
 function getLocation(id, dim){
     let index = dimToIndex[dim];
@@ -165,7 +116,6 @@ function updateLocation(id, src, value=0, dim="AUTO"){
 
     config.item[id].location[index] = value;
 }
-
 // rotation
 function getRotation(id){
     let direction = config.item[id].rotation.direction;
@@ -210,7 +160,6 @@ function updateRotation(id, src, value=0, dim="AUTO"){
 
     config.item[id].rotation.degree = value;
 }
-
 // scaling
 function getScaleRatio(id, dim){
 
@@ -262,7 +211,6 @@ function updateScaling(id, src, value=0, dim="AUTO"){
 
 
 }
-
 // shearing
 function updateShearing(id, src, value=0){
 
@@ -364,6 +312,83 @@ function updateShininess(id, src, value=0){
 }
 
 
+let lightPanel = [
+    { 
+        flashing: {
+            status: false,
+            bR: 0,
+            bG: 0,
+            bB: 0,
+            dR:0,
+            dG:0,
+            dB:0,
+            origin_color: [],
+        }, 
+        moving: {
+            status: false,
+            mX: 0,
+            mY: 0,
+            mZ: 0,
+            origin_position: []
+        }, 
+        changing: {
+            status: false,
+            A: 0,
+            B: 0,
+            origin_color: []
+        } 
+    },
+    { 
+        flashing: {
+            status: false,
+            bR: 0,
+            bG: 0,
+            bB: 0,
+            dR:0,
+            dG:0,
+            dB:0,
+            origin_color: [],
+        }, 
+        moving: {
+            status: false,
+            mX: 0,
+            mY: 0,
+            mZ: 0,
+            origin_position: []
+        }, 
+        changing: {
+            status: false,
+            A: 0,
+            B: 0,
+            origin_color: []
+        } 
+    },
+    { 
+        flashing: {
+            status: false,
+            bR: 0,
+            bG: 0,
+            bB: 0,
+            dR:0,
+            dG:0,
+            dB:0,
+            origin_color: [],
+        }, 
+        moving: {
+            status: false,
+            mX: 0,
+            mY: 0,
+            mZ: 0,
+            origin_position: []
+        }, 
+        changing: {
+            status: false,
+            A: 0,
+            B: 0,
+            origin_color: []
+        } 
+    }
+]
 // Light Interact Block 1
 function updateColor(id, src, channel, value=0, type="cos"){
     let RVB = document.getElementById(`R${id}-VB`);
@@ -576,7 +601,6 @@ function vibingSwitch(id){
     }
 } 
 
-
 // feature 2
 function flashingSwitch(id){
 
@@ -674,16 +698,6 @@ function changingSwitch(id){
     return 0;
 }
 
-
-
-// Theme
-let modeStatus = {
-    "disco": false,
-    "concert": false,
-    "angry": false,
-    "Rushmore": false
-}
-
 function init(){
     
     let get = document.getElementById.bind(document);
@@ -751,16 +765,74 @@ function init(){
     
 }
 init();
-document.getElementById('tab-7').click();
+
+
+// Theme
+let modeStatus = {
+    "disco": false,
+    "concert": false,
+    "angry": false,
+    "Rushmore": false
+}
+function Cleanup(){
+
+    for(const [mode, status] of Object.entries(modeStatus)){
+        if(status){
+            for(let i=0;i<3;i++){
+
+                if(config.item[i].model === "Hide")
+                    updateModel(i, "Teapot");
+                else{
+                    updateModel(i, config.item[i].model);
+                }
+
+                updateRotation(i, "Cleanup", 35);
+                updateScaling(i, "Cleanup", 1);
+                updateShearing(i, "Cleanup", 90);
+
+                updateKa(i, "Cleanup", 0.1);
+                updateKd(i, "Cleanup", 0.1);
+                updateKs(i, "Cleanup", 0.1);
+                updateShininess(i, "Cleanup", 0.5);
+
+                updateColor(i, "Cleanup", "A", 1);
+
+                console.log(lightPanel[i].moving.status);
+
+                if(lightPanel[i].flashing.status)
+                    flashingSwitch(i);
+                if(lightPanel[i].moving.status)
+                    movingSwitch(i);
+                if(lightPanel[i].changing.status)
+                    changingSwitch(i);
+
+                if(!config.item[i].autoRotate)
+                    autoRotateSwitch(i);
+                if(config.item[i].crazy)
+                    crazyRotateSwitch(i);
+                if(config.item[i].vibing)
+                    vibingSwitch(i);
+
+                modeStatus[mode] = false;
+
+                console.log(lightPanel);
+
+            }
+            return;
+        }
+    }
+}
 
 function DiscoMode(){
     let btn = document.getElementsByClassName("img-btn")[0];
 
     if(!modeStatus.disco){
+        Cleanup();
         modeStatus.disco = true;
         btn.style.filter = "grayscale(0%)";
         
         updateModel(0, "Kangaroo");
+        updateModel(1, "Teapot");
         updateModel(2, "Kangaroo");
 
         updateShader(0, "Gouraud");
@@ -777,7 +849,6 @@ function DiscoMode(){
         updateRotation(1, "Disco", 200);
         changingSwitch(1);
 
-
         vibingSwitch(0);
         vibingSwitch(2);
         autoRotateSwitch(0);
@@ -785,26 +856,16 @@ function DiscoMode(){
 
     }
     else{
-        modeStatus.disco = false;
+        Cleanup()
         btn.style.filter = "grayscale(100%)";
-
-        changingSwitch(1);
-        autoRotateSwitch(0);
-        autoRotateSwitch(2);
-
-        updateColor(1, "Disco", "A", 1);
-        updateLocation(1, "Disco", 0, "y");
-        updateRotation(1, "Disco", 35);
-        vibingSwitch(0);
-        vibingSwitch(2);
-
-
     }
 }
 function ConcertMode(){
     let btn = document.getElementsByClassName("img-btn")[1];
 
     if(!modeStatus.concert){
+
+        Cleanup();
         modeStatus.concert = true;
         btn.style.filter = "grayscale(0%)";
 
@@ -829,32 +890,23 @@ function ConcertMode(){
         movingSwitch(1);
     }
     else{
-        modeStatus.concert = false;
+        Cleanup();
         btn.style.filter = "grayscale(100%)";
-
-        updateColor(0, "Concert", "A", 1);
-        updateColor(1, "Concert", "A", 1);
-        updateColor(2, "Concert", "A", 1);
-
-        autoRotateSwitch(0);
-        autoRotateSwitch(1);
-        autoRotateSwitch(2);
-
-        flashingSwitch(2);
-        movingSwitch(1);
-
     }
 }
 function AngryMode(){
     let btn = document.getElementsByClassName("img-btn")[2];
 
     if(!modeStatus.angry){
+
+        Cleanup();
         modeStatus.angry = true;
         btn.style.filter = "grayscale(0%)";
 
         updateShader(1,"Gouraud");
 
         updateModel(0, "Hide");
+        updateModel(1, "Teapot");
         updateModel(2, "Hide");
 
         vibingSwitch(1);
@@ -868,27 +920,16 @@ function AngryMode(){
         updateKd(1, "Angry", 0);
     }
     else{
-        modeStatus.angry = false;
+        Cleanup();
         btn.style.filter = "grayscale(100%)";
-
-        updateModel(0, "Teapot");
-        updateModel(2, "Teapot");
-
-        updateColor(1, "Angry", "A", 1);
-        updateScaling(1, "Angry", 1, "all");
-        updateRotation(1, "Angry", 35);
-        updateShearing(1, "Angry", 90);
-        updateKa(1, "Angry", 0.1);
-        updateKd(1, "Angry", 0.1);
-
-        vibingSwitch(1);
-        flashingSwitch(1);
     }
 }
 function RushmoreMode(){
     let btn = document.getElementsByClassName("img-btn")[3];
 
     if(!modeStatus.Rushmore){
+
+        Cleanup();
         modeStatus.Rushmore = true;
         btn.style.filter = "grayscale(0%)";
 
@@ -926,29 +967,7 @@ function RushmoreMode(){
         movingSwitch(1);
     }
     else{
-        modeStatus.Rushmore = false;
+        Cleanup();   
         btn.style.filter = "grayscale(100%)";
-
-        updateModel(0, "Teapot");
-        updateModel(1, "Teapot");
-        updateModel(2, "Teapot");
-
-        updateShader(0, "Flat");
-        updateShader(1, "Gouraud");
-        updateShader(2, "Phong");
-
-        for(let i=0;i<3;i++){
-            updateShearing(i, "Rushmore", 90);
-            updateKa(i, "Rushmore", 0.1);
-            updateKd(i, "Rushmore", 0.1);
-            updateKs(i, "Rushmore", 0.1);
-            updateShininess(i, "Rushmore", 1);
-            autoRotateSwitch(i);
-        }
-        updateLocation(0, "Rushmore", -40, "x");
-        updateLocation(1, "Rushmore", 0, "x");
-        updateLocation(2, "Rushmore", 40, "x");
-
-        movingSwitch(1);
     }
 }
