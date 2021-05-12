@@ -1,6 +1,6 @@
 const AUTO = -1;
 const coe = 2 * Math.PI * 0.001;
-document.getElementById('tab-7').click();
+document.getElementById('tab-0').click();
 
 function getTab(ID){
 
@@ -773,9 +773,14 @@ let modeStatus = {
     "concert": false,
     "angry": false,
     "Rushmore": false,
-    "battle": false
+    "battle": false,
+    "lake": false
 }
 function Cleanup(){
+
+    for(let i=0;i<6;i++){
+        document.getElementsByClassName('img-btn')[i].style.filter = "grayscale(100%)";
+    }
 
     for(const [mode, status] of Object.entries(modeStatus)){
         if(status){
@@ -824,8 +829,8 @@ function Cleanup(){
 function DiscoMode(){
     let btn = document.getElementsByClassName("img-btn")[0];
 
+    Cleanup();
     if(!modeStatus.disco){
-        Cleanup();
         modeStatus.disco = true;
         btn.style.filter = "grayscale(0%)";
         gl.clearColor(0.2, 0.2, 0.2, 1.0);
@@ -856,16 +861,15 @@ function DiscoMode(){
 
     }
     else{
-        Cleanup()
         btn.style.filter = "grayscale(100%)";
     }
 }
 function ConcertMode(){
     let btn = document.getElementsByClassName("img-btn")[1];
 
+    Cleanup();
     if(!modeStatus.concert){
 
-        Cleanup();
         modeStatus.concert = true;
         btn.style.filter = "grayscale(0%)";
         gl.clearColor(0.2, 0.1, 0.2, 1.0);
@@ -895,47 +899,87 @@ function ConcertMode(){
         movingSwitch(1);
     }
     else{
-        Cleanup();
         btn.style.filter = "grayscale(100%)";
     }
 }
 function AngryMode(){
     let btn = document.getElementsByClassName("img-btn")[2];
 
+    Cleanup();
     if(!modeStatus.angry){
 
-        Cleanup();
         modeStatus.angry = true;
         btn.style.filter = "grayscale(0%)";
         gl.clearColor(0.4, 0.3, 0.2, 1.0);
 
+        updateShader(0,"Gouraud");
         updateShader(1,"Gouraud");
+        updateShader(2,"Gouraud");
 
-        updateModel(0, "Hide");
+        
         updateModel(1, "Teapot");
-        updateModel(2, "Hide");
-
-        vibingSwitch(1);
-        flashingSwitch(1);
-
         updateColor(1, "Angry", "R", 4);
         updateScaling(1, "Angry", 2, "all");
-        updateRotation(1, "Angry", 300);
+        updateRotation(1, "Angry", 30);
         updateShearing(1, "Angry", 125);
         updateKa(1, "Angry", 0);
         updateKd(1, "Angry", 0);
+        
+        updateModel(2, "Easter");
+        updateLocation(2, "Angry", 60, "x");
+        updateLocation(2, "Angry", 65, "y");
+        updateLocation(2, "Angry", -80, "z");
+        updateScaling(2, "Angry", 0.5, "x");
+        updateScaling(2, "Angry", 0.5, "y");
+        updateScaling(2, "Angry", 5, "z");
+        crazyRotateSwitch(2);
+        vibingSwitch(2);
+        
+        updateModel(0, "Easter");
+        updateLocation(0, "Angry", -60, "x");
+        updateLocation(0, "Angry", 65, "y");
+        updateLocation(0, "Angry", -80, "z");
+        updateScaling(0, "Angry", 0.5, "x");
+        updateScaling(0, "Angry", 0.5, "y");
+        updateScaling(0, "Angry", 5, "z");
+        crazyRotateSwitch(0);
+        vibingSwitch(0);
+
+        updateLightPosition(0, "Angry", "x", -150);
+        updateLightPosition(0, "Angry", "y", 0);
+        updateLightPosition(0, "Angry", "z", 0);
+        updateColor(0, "Angry", "R", 8);
+        updateColor(0, "Angry", "G", 2);
+        updateColor(0, "Angry", "B", 0);
+        
+        updateLightPosition(1, "Angry", "x", 0);
+        updateLightPosition(1, "Angry", "y", 0);
+        updateLightPosition(1, "Angry", "z", 0);
+        updateColor(1, "Angry", "R", 4);
+        updateColor(1, "Angry", "G", 0);
+        updateColor(1, "Angry", "B", 0);
+        
+        flashingSwitch(0);
+        flashingSwitch(1);
+        flashingSwitch(2);
+        updateColor(2, "Angry", "A", 1);
+        updateKs(0, "Angry", 0.5);
+        updateKs(1, "Angry", 0.15);
+        updateKs(2, "Angry", 0.5);
+        updateShininess(0, "Angry", 5);
+        updateShininess(1, "Angry", 5);
+        updateShininess(2, "Angry", 5);
     }
     else{
-        Cleanup();
         btn.style.filter = "grayscale(100%)";
     }
 }
 function RushmoreMode(){
     let btn = document.getElementsByClassName("img-btn")[3];
 
+    Cleanup();
     if(!modeStatus.Rushmore){
 
-        Cleanup();
         modeStatus.Rushmore = true;
         btn.style.filter = "grayscale(0%)";
         gl.clearColor(0.0, 0.5, 0.7, 1.0);
@@ -985,16 +1029,15 @@ function RushmoreMode(){
         movingSwitch(1);
     }
     else{
-        Cleanup();   
         btn.style.filter = "grayscale(100%)";
     }
 }
 function BattleMode(){
     let btn = document.getElementsByClassName("img-btn")[4];
 
+    Cleanup();
     if(!modeStatus.battle){
 
-        Cleanup();
         modeStatus.battle = true;
         btn.style.filter = "grayscale(0%)";
         gl.clearColor(0.1, 0.1, 0.1, 1.0);
@@ -1037,7 +1080,71 @@ function BattleMode(){
         movingSwitch(0);
     }
     else{
-        Cleanup();   
+        btn.style.filter = "grayscale(100%)";
+    }
+}
+function LakeMode(){
+    let btn = document.getElementsByClassName("img-btn")[5];
+
+    Cleanup();
+    if(!modeStatus.battle){
+
+        modeStatus.battle = true;
+        btn.style.filter = "grayscale(0%)";
+        gl.clearColor(0.3, 0.7, 0.3, 1.0);
+
+        updateModel(0,"Teapot");
+        updateModel(1,"Teapot");
+        updateModel(2,"Teapot");
+
+        updateShader(0, "Gouraud");
+        updateShader(1, "Gouraud");
+        updateShader(2, "Gouraud");
+
+        updateColor(0, "battle", "G", 4);
+        updateColor(0, "battle", "B", 4);
+        updateColor(1, "battle", "A", 2);
+        updateColor(2, "battle", "A", 2);
+        updateLightPosition(0, "battle", "x", -65);
+        updateLightPosition(0, "battle", "y", -150);
+        updateLightPosition(0, "battle", "z", 0);
+        updateLightPosition(1, "battle", "x", -80);
+        updateLightPosition(1, "battle", "y", 100);
+        updateLightPosition(1, "battle", "z", 0);
+        
+        updateLocation(0, "battle", -100, "x");
+        updateLocation(0, "battle", -5, "y");
+        updateLocation(0, "battle", -80, "z");
+        updateLocation(1, "battle", -150, "x");
+        updateLocation(1, "battle", -30, "y");
+        updateLocation(1, "battle", -80, "z");
+        updateLocation(2, "battle", 60, "x");
+        updateLocation(2, "battle", -20, "y");
+        updateLocation(2, "battle", -80, "z");
+
+        updateScaling(0, "battle", 3, "all");
+        updateScaling(1, "battle", 3, "x");
+        updateScaling(1, "battle", 0.5, "y");
+        updateScaling(1, "battle", 0.5, "z");
+
+        updateShearing(1, "battle", 179);
+        updateShearing(2, "battle", 90);
+
+        updateRotation(0, "battle", 0);
+        updateRotation(1, "battle", 540);
+        config.item[1].rotation.direction = [1.0, 0.0, 0.0];
+        updateRotation(2, "battle", 50);
+
+        crazyRotateSwitch(1);
+        movingSwitch(1);
+        movingSwitch(2);
+        autoRotateSwitch(0);
+
+        updateKs(1, "battle", 0.2);
+        updateShininess(1, "battle", 0.5);
+        
+    }
+    else{
         btn.style.filter = "grayscale(100%)";
     }
 }
