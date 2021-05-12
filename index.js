@@ -680,8 +680,10 @@ function changingSwitch(id){
 let modeStatus = {
     "disco": false,
     "concert": false,
-    "teapot": false
+    "angry": false,
+    "Rushmore": false
 }
+
 function init(){
     
     let get = document.getElementById.bind(document);
@@ -841,5 +843,112 @@ function ConcertMode(){
         flashingSwitch(2);
         movingSwitch(1);
 
+    }
+}
+function AngryMode(){
+    let btn = document.getElementsByClassName("img-btn")[2];
+
+    if(!modeStatus.angry){
+        modeStatus.angry = true;
+        btn.style.filter = "grayscale(0%)";
+
+        updateShader(1,"Gouraud");
+
+        updateModel(0, "Hide");
+        updateModel(2, "Hide");
+
+        vibingSwitch(1);
+        flashingSwitch(1);
+
+        updateColor(1, "Angry", "R", 4);
+        updateScaling(1, "Angry", 2, "all");
+        updateRotation(1, "Angry", 300);
+        updateShearing(1, "Angry", 125);
+        updateKa(1, "Angry", 0);
+        updateKd(1, "Angry", 0);
+    }
+    else{
+        modeStatus.angry = false;
+        btn.style.filter = "grayscale(100%)";
+
+        updateModel(0, "Teapot");
+        updateModel(2, "Teapot");
+
+        updateColor(1, "Angry", "A", 1);
+        updateScaling(1, "Angry", 1, "all");
+        updateRotation(1, "Angry", 35);
+        updateShearing(1, "Angry", 90);
+        updateKa(1, "Angry", 0.1);
+        updateKd(1, "Angry", 0.1);
+
+        vibingSwitch(1);
+        flashingSwitch(1);
+    }
+}
+function RushmoreMode(){
+    let btn = document.getElementsByClassName("img-btn")[3];
+
+    if(!modeStatus.Rushmore){
+        modeStatus.Rushmore = true;
+        btn.style.filter = "grayscale(0%)";
+
+        updateModel(0,"Easter");
+        updateModel(1,"Easter");
+        updateModel(2, "Easter");
+
+
+        updateColor(1, "Rushmore", "A", 5);
+        
+        updateLocation(0, "Rushmore", -5, "x");
+        updateShearing(0, "Rushmore", -65);
+        updateKa(0, "Rushmore", 0.05);
+        updateKd(0, "Rushmore", 0.05);
+        updateKs(0, "Rushmore", 0.35);
+        updateShininess(0, "Rushmore", 0.5);
+
+        updateLocation(0, "Rushmore", -20, "x");
+        updateShearing(1, "Rushmore", -120);
+        updateKa(1, "Rushmore", 0.05);
+        updateKd(1, "Rushmore", 0.05);
+        updateKs(1, "Rushmore", 0.35);
+        updateShininess(1, "Rushmore", 0.5);
+
+        updateLocation(0, "Rushmore", 20, "x");
+        updateShearing(2, "Rushmore", -130);
+        updateKa(2, "Rushmore", 0.05);
+        updateKd(2, "Rushmore", 0.05);
+        updateKs(2, "Rushmore", 0.35);
+        updateShininess(2, "Rushmore", 0.5);
+
+        autoRotateSwitch(0);
+        autoRotateSwitch(1);
+        autoRotateSwitch(2);
+        movingSwitch(1);
+    }
+    else{
+        modeStatus.Rushmore = false;
+        btn.style.filter = "grayscale(100%)";
+
+        updateModel(0, "Teapot");
+        updateModel(1, "Teapot");
+        updateModel(2, "Teapot");
+
+        updateShader(0, "Flat");
+        updateShader(1, "Gouraud");
+        updateShader(2, "Phong");
+
+        for(let i=0;i<3;i++){
+            updateShearing(i, "Rushmore", 90);
+            updateKa(i, "Rushmore", 0.1);
+            updateKd(i, "Rushmore", 0.1);
+            updateKs(i, "Rushmore", 0.1);
+            updateShininess(i, "Rushmore", 1);
+            autoRotateSwitch(i);
+        }
+        updateLocation(0, "Rushmore", -40, "x");
+        updateLocation(1, "Rushmore", 0, "x");
+        updateLocation(2, "Rushmore", 40, "x");
+
+        movingSwitch(1);
     }
 }

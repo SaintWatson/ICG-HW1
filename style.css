@@ -103,13 +103,10 @@
     background-color: white;
     color:blue;
     border-radius: 10px;
-
-    transition-delay: 10ms;
 }
 
 .feat:hover{
     font-weight: bolder;
-    transition-delay: 4ms;
     cursor: pointer;
 }
 
@@ -118,7 +115,6 @@
     border-color: white;
     border-radius: 5%;
     filter: grayscale(100%);
-    /* transition-duration: 10ms; */
 }
 .img-btn:hover{
     width: 102%;
