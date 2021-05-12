@@ -30,8 +30,8 @@
             <button class="tab" id="tab-3" onclick="getTab(3)">Light1</button>
             <button class="tab" id="tab-4" onclick="getTab(4)">Light2</button>
             <button class="tab" id="tab-5" onclick="getTab(5)">Light3</button>
-            <button class="tab" id="tab-6" onclick="getTab(6)">Option</button>
-            <button class="tab" id="tab-7" onclick="getTab(7)">Feature</button>
+            <button class="tab" id="tab-6" onclick="getTab(6)">Feature</button>
+            <button class="tab" id="tab-7" onclick="getTab(7)">Theme</button>
             <button class="tab" id="tab-8" onclick="getTab(8)">Background</button>
         </div>
 
@@ -607,7 +607,46 @@
             
         </div>
 
-        <div class="panel" id="panel-6"></div>
+        <div class="panel" id="panel-6" style="display: grid; grid-template-columns: 1fr 1fr;">
+
+            <fieldset class="sub-panel" style="display: grid; grid-template-columns: repeat(3,1fr); grid-template-rows: 0% 100%;">
+                <legend class="p-title">Item</legend>
+                <div class="btn-box">
+                    <button class="feat" id="AR0" onclick="autoRotateSwitch(0)">Auto Rotate</button>
+                    <button class="feat" id="CR0" onclick="crazyRotateSwitch(0)">Crazy Rotate</button>
+                    <button class="feat" id="V0" onclick="vibingSwitch(0)">Vibing</button>
+                </div>
+                <div class="btn-box">
+                    <button class="feat" id="AR1" onclick="autoRotateSwitch(1)">Auto Rotate</button>
+                    <button class="feat" id="CR1" onclick="crazyRotateSwitch(1)">Crazy Rotate</button>
+                    <button class="feat" id="V1" onclick="vibingSwitch(1)">Vibing</button>
+                </div>
+                <div class="btn-box">
+                    <button class="feat" id="AR2" onclick="autoRotateSwitch(2)">Auto Rotate</button>
+                    <button class="feat" id="CR2" onclick="crazyRotateSwitch(2)">Crazy Rotate</button>
+                    <button class="feat" id="V2" onclick="vibingSwitch(2)">Vibing</button>
+                </div>
+            </fieldset>
+            
+            <fieldset class="sub-panel" style="display: grid; grid-template-columns: repeat(3,1fr); grid-template-rows: 0% 100%;">
+                <legend class="p-title">Light</legend>
+                <div class="btn-box">
+                    <button class="feat" id="FL0" onclick="flashingSwitch(0)">Flashing</button>
+                    <button class="feat" id="MV0" onclick="movingSwitch(0)">Moving</button>
+                    <button class="feat" id="CH0" onclick="changingSwitch(0)">Changing</button>
+                </div>
+                <div class="btn-box">
+                    <button class="feat" id="FL1" onclick="flashingSwitch(1)">Flashing</button>
+                    <button class="feat" id="MV1" onclick="movingSwitch(1)">Moving</button>
+                    <button class="feat" id="CH1" onclick="changingSwitch(1)">Changing</button>
+                </div>
+                <div class="btn-box">
+                    <button class="feat" id="FL2" onclick="flashingSwitch(2)">Flashing</button>
+                    <button class="feat" id="MV2" onclick="movingSwitch(2)">Moving</button>
+                    <button class="feat" id="CH2" onclick="changingSwitch(2)">Changing</button>
+                </div>
+            </fieldset>
+        </div>
         <div class="panel" id="panel-7"></div>
         <div class="panel" id="panel-8"></div>
     </div>

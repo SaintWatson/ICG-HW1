@@ -56,6 +56,14 @@
     grid-column: 0/2;
 }
 /* control-box */
+.btn-box{
+    /* border: 1px solid; */
+    grid-row: 2;
+    height: 90%;
+
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+}
 .control-box-4{
     display: grid;
     grid-template-columns: 60% 40%;
@@ -88,21 +96,19 @@
     margin-left: 10%;
 }
 
-.options{
+.feat{
     font-size: 20;
-    font-family:'Arial Narrow Bold', sans-serif ;
-    padding: 3;
-    margin: 3;
-    width: 80%;
-    left: 50%;
+    margin: 5;
+    width: 90%;
     background-color: red;
     color:white;
     border-radius: 10px;
+
     transition-delay: 4ms;
     transition-duration: 4ms;
 }
 
-.options:hover{
+.feat:hover{
     font-weight: bolder;
     transition-delay: 4ms;
     cursor: pointer;

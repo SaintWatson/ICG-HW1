@@ -12,6 +12,96 @@ function getTab(ID){
     tabs[ID].style.backgroundColor = "#ccc";
 
 }
+let lightPanel = [
+    { 
+        flashing: {
+            status: false,
+            bR: 0,
+            bG: 0,
+            bB: 0,
+            dR:0,
+            dG:0,
+            dB:0,
+            origin_color: [],
+        }, 
+        moving: {
+            status: false,
+            mX: 0,
+            mY: 0,
+            mZ: 0,
+            origin_position: []
+        }, 
+        changing: {
+            status: false,
+            A: 0,
+            B: 0,
+            origin_color: []
+        } 
+    },
+    { 
+        flashing: {
+            status: false,
+            bR: 0,
+            bG: 0,
+            bB: 0,
+            dR:0,
+            dG:0,
+            dB:0,
+            origin_color: [],
+        }, 
+        moving: {
+            status: false,
+            mX: 0,
+            mY: 0,
+            mZ: 0,
+            origin_position: []
+        }, 
+        changing: {
+            status: false,
+            A: 0,
+            B: 0,
+            origin_color: []
+        } 
+    },
+    { 
+        flashing: {
+            status: false,
+            bR: 0,
+            bG: 0,
+            bB: 0,
+            dR:0,
+            dG:0,
+            dB:0,
+            origin_color: [],
+        }, 
+        moving: {
+            status: false,
+            mX: 0,
+            mY: 0,
+            mZ: 0,
+            origin_position: []
+        }, 
+        changing: {
+            status: false,
+            A: 0,
+            B: 0,
+            origin_color: []
+        } 
+    }
+]
+const AUTO = -1;
+const coe = 2 * Math.PI * 0.001;
+
+function getTimeArg(range, type){
+    let time = new Date().getMilliseconds();
+    
+
+    if(type === "cos")
+        return Math.cos(time * coe) * range;
+        
+    else if(type === "sin")
+        return Math.sin(time * coe) * range;
+}
 
 // Item Interact Block 1
 
@@ -170,8 +260,6 @@ function updateShearing(id, src, value=0){
 
     config.item[id].shear = value;
 }
-
-
     
 // Item Interact Block 3
 function updateKa(id, src, value=0){
@@ -251,8 +339,9 @@ function updateShininess(id, src, value=0){
     config.item[id].Shininess = value;
 }
 
+
 // Light Interact Block 1
-function updateColor(id, src, channel, value=0){
+function updateColor(id, src, channel, value=0, type="cos"){
     let RVB = document.getElementById(`R${id}-VB`);
     let RRB = document.getElementById(`R${id}-RB`);
     let GVB = document.getElementById(`G${id}-VB`);
@@ -261,6 +350,9 @@ function updateColor(id, src, channel, value=0){
     let BRB = document.getElementById(`B${id}-RB`);
     let AVB = document.getElementById(`A${id}-VB`);
     let ARB = document.getElementById(`A${id}-RB`);
+
+    if(value === AUTO)
+        value = getTimeArg(16, type);
 
     if(channel === "R"){
         switch(src){
@@ -348,12 +440,21 @@ function updateColor(id, src, channel, value=0){
         }
         config.light[id].color = [value, value, value];
     }
-}
 
+    if(lightPanel[id].flashing.status && src !=="flash"){
+        flashingSwitch(id);
+        lightPanel[id].flashing.origin_color = config.light[id].color;
+        flashingSwitch(id);
+    }
+}
 // Light Interact Block 2
-function updateLightPosition(id, src, dim, value=0){
+function updateLightPosition(id, src, dim, value=0, type="cos"){
     let RB = document.getElementById(`${dim.toUpperCase()}${id}-RB`);
     let VB = document.getElementById(`${dim.toUpperCase()}${id}-VB`);
+
+    if(value === AUTO)
+        value = getTimeArg(720, type);
+
     switch(src){
         case "RB":
             value = RB.value;
@@ -371,7 +472,6 @@ function updateLightPosition(id, src, dim, value=0){
     let index = dimToIndex[dim];
     config.light[id].position[index] = value;
 }
-
 // Light Interact Block 3
 function updateByColorPad(id){
     let pad = document.getElementById(`CL${id}`);
@@ -381,13 +481,11 @@ function updateByColorPad(id){
     let R = parseInt(result[1], 16) / ratio;
     let G = parseInt(result[2], 16) / ratio;
     let B = parseInt(result[3], 16) / ratio;
-
+    
     updateColor(id, "pad", "R", R);
     updateColor(id, "pad", "G", G);
     updateColor(id, "pad", "B", B);
-
 }
-
 function updateByColorButton(id, btn_id){
 
     let R = 4 - Math.floor(btn_id / 9) * 2;
@@ -397,7 +495,7 @@ function updateByColorButton(id, btn_id){
     updateColor(id, "btn", "R", R);
     updateColor(id, "btn", "G", G);
     updateColor(id, "btn", "B", B);
-
+    
     let pad = document.getElementById(`CL${id}`);
     let tran = {
         0: "00",
@@ -407,38 +505,144 @@ function updateByColorButton(id, btn_id){
     pad.value = `#${tran[R]}${tran[G]}${tran[B]}`;
 }
 
-// option
+
+// feature 1
 function autoRotateSwitch(id){
-    let btn = document.getElementById("AR"+(id+1).toString());
-    config.item[id].autoRotate = !config.item[id].autoRotate;
+    let btn = document.getElementById(`AR${id}`);
 
-    if(config.item[id].autoRotate)
-        btn.style.backgroundColor = '#0000FF';
-    else
-        btn.style.backgroundColor = '#FF0000';
+    if(config.item[id].autoRotate){
+        config.item[id].autoRotate = false;
+        btn.style.backgroundColor = '#FF0000'; // red
+    }
+    else{
+        config.item[id].autoRotate = true;
+        btn.style.backgroundColor = '#0000FF'; // blue
+    }
 } 
-function crazySwitch(id){
-    let btn = document.getElementById("C"+(id+1).toString());
-    config.item[id].crazy = !config.item[id].crazy;
+function crazyRotateSwitch(id){
+    let btn = document.getElementById(`CR${id}`);
 
-    if(config.item[id].crazy)
-        btn.style.backgroundColor = '#0000FF';
-    else
+    if(config.item[id].crazy){
+        config.item[id].crazy = false;
         btn.style.backgroundColor = '#FF0000';
+    }
+    else{
+        config.item[id].crazy = true;
+        btn.style.backgroundColor = '#0000FF';
+    }
 } 
-function dancingSwitch(id){
-    let btn = document.getElementById("D"+(id+1).toString());
-    config.item[id].dancing = !config.item[id].dancing;
+function vibingSwitch(id){
+    let btn = document.getElementById(`V${id}`);
 
-    if(config.item[id].dancing)
-        btn.style.backgroundColor = '#0000FF';
-    else
+    if(config.item[id].vibing){
+        config.item[id].vibing = false;
         btn.style.backgroundColor = '#FF0000';
+    }
+    else{
+        config.item[id].vibing = true;
+        btn.style.backgroundColor = '#0000FF';
+    }
 } 
+
+
+// feature 2
+function flashingSwitch(id){
+
+    let inteval = 100;
+    let flash = lightPanel[id].flashing;
+
+    if(!flash.status){
+
+        flash.origin_color = config.light[id].color.slice();
+        flash.status = true;
+        
+        
+        flash.bR = setInterval(updateColor, inteval, id, 'flash' ,'R', flash.origin_color[0] * 3);
+        flash.bG = setInterval(updateColor, inteval, id, 'flash' ,'G', flash.origin_color[1] * 3);
+        flash.bB = setInterval(updateColor, inteval, id, 'flash' ,'B', flash.origin_color[2] * 3);
+        
+        flash.dR = setInterval(updateColor, inteval * 2, id, 'flash' ,'R', flash.origin_color[0]);
+        flash.dG = setInterval(updateColor, inteval * 2, id, 'flash' ,'G', flash.origin_color[1]);
+        flash.dB = setInterval(updateColor, inteval * 2, id, 'flash' ,'B', flash.origin_color[2]);
+        
+        document.getElementById(`FL${id}`).style.backgroundColor='#0000FF';
+    }
+    else{
+        
+        clearInterval(flash.bR);
+        clearInterval(flash.bG);
+        clearInterval(flash.bB);
+        
+        clearInterval(flash.dR);
+        clearInterval(flash.dG);
+        clearInterval(flash.dB);
+        
+        
+        flash.status = false;
+        document.getElementById(`FL${id}`).style.backgroundColor='#FF0000';
+    }
+
+}
+function movingSwitch(id){
+
+    let interval = 20;
+    let move = lightPanel[id].moving;
+
+    if(!move.status){
+
+        move.mX = setInterval(updateLightPosition, interval, id, 'move', 'x', AUTO, "cos");
+        move.mY = setInterval(updateLightPosition, interval, id, 'move', 'y', AUTO, "sin");
+        move.mZ = setInterval(updateLightPosition, interval, id, 'move', 'z', AUTO, "sin");
+
+        move.status = true;
+        move.origin_position = config.light[id].position;
+        document.getElementById(`MV${id}`).style.backgroundColor='#0000FF';
+    }
+    else{
+        clearInterval(move.mX);
+        clearInterval(move.mY);
+        clearInterval(move.mZ);
+
+        move.status = false;
+        updateLightPosition(id, 'move', 'x', move.origin_position[0]);
+        updateLightPosition(id, 'move', 'y', move.origin_position[1]);
+        updateLightPosition(id, 'move', 'z', move.origin_position[2]);
+
+        document.getElementById(`MV${id}`).style.backgroundColor='#FF0000';
+    }
+}
+function changingSwitch(id){
+    let inteval = 50;
+    let change = lightPanel[id].changing;
+
+    if(!change.status){
+
+        change.origin_color = config.light[id].color.slice();
+        change.status = true;
+        
+        change.A = setInterval(updateColor, inteval, id, 'change' ,'R', AUTO, "cos");
+        change.B = setInterval(updateColor, inteval, id, 'change' ,'G', AUTO, "sin");
+        
+        document.getElementById(`CH${id}`).style.backgroundColor='#0000FF';
+    }
+    else{
+        
+        clearInterval(change.A);
+        clearInterval(change.B);
+        
+        change.status = false;
+        document.getElementById(`CH${id}`).style.backgroundColor='#FF0000';
+    }
+    return 0;
+}
 
 function init(){
     
     let get = document.getElementById.bind(document);
+    let boolColor = {
+        true: '#0000FF',
+        false: '#FF0000'
+    };
 
     for(let i=0 ; i<3 ; i++){
 
@@ -489,8 +693,14 @@ function init(){
 
         get(`Z${i}-RB`).value = config.light[i].position[2];
         get(`Z${i}-VB`).value = config.light[i].position[2];
+
+        get(`AR${i}`).style.backgroundColor = boolColor[config.item[i].autoRotate];
+        get(`CR${i}`).style.backgroundColor = boolColor[config.item[i].crazy];
+        get(`V${i}`).style.backgroundColor = boolColor[config.item[i].vibing];
+
     }
-    let initPanel = get("tab-0");
+    let initPanel = get("tab-6");
     initPanel.click()
 }
+
 init();
